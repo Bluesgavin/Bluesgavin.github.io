@@ -1,0 +1,221 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>npm认识 | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594220418038">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="npm认识 | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="作为一个前端开发者，用了这么久的npm，有一天突然问自己。自己究竟对npm有多了解？
+npm是一个包管理工具
+想想我们最早写js的时候，对于重复引用的代码片段，我们是怎么引用的？
+&lt;script src=&quot;https://c..." />
+    <meta name="keywords" content="总结思考" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594220418038" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              npm认识
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-07-07
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/LR8YEmTdc/" class="post-tag">
+                  # 总结思考
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>作为一个前端开发者，用了这么久的npm，有一天突然问自己。自己究竟对<code>npm</code>有多了解？</p>
+<h2 id="npm是一个包管理工具">npm是一个包管理工具</h2>
+<p>想想我们最早写js的时候，对于重复引用的代码片段，我们是怎么引用的？</p>
+<pre><code>&lt;script src=&quot;https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js&quot;&gt;
+</code></pre>
+<p>是不是感觉熟悉又陌生。这就是最早我们引用js的方式。后来由于nodejs出现了，作为一种可以运行在系统上的语言，没有了html，我们该怎么引用js呢？</p>
+<pre><code>module.exports=function(x){console.log(x);}; 
+
+var xxx = require('xxx');
+</code></pre>
+<p>因此出现了CommonJS规范。当然此外，我们还有AMD,CMD等。那么这些规范的出现使得我们可以更加愉快地引用js代码。这时候我们便需要一种方式可以更方便地提交或者获取某些代码。npm因此出现了。他有以下功能：</p>
+<ul>
+<li>允许用户从NPM服务器下载别人编写的第三方包到本地使用。</li>
+<li>允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。</li>
+<li>允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。</li>
+</ul>
+<h2 id="npm做了什么">npm做了什么？</h2>
+<p>首先我们要知道我们的项目中需要用到什么依赖，版本是什么？这些信息需要找一个地方记录，这就是<code>package.json</code>。</p>
+<pre><code>npm init
+</code></pre>
+<p>npm可以通过命令创建模块，生成 package.json 文件，生成的文件包含了基本的结果。当我们需要从网上下载依赖的时候只要执行</p>
+<pre><code>npm ininstall xxx
+</code></pre>
+<p>npm就会把依赖下载放到<code>node_modules</code>文件夹中,并在<code>package.json</code>中记录我们下载的依赖的名称和版本号。</p>
+<h2 id="引用流程">引用流程</h2>
+<p>当我们引用js的时候，系统该去哪里找我们需要的代码？npm作了一个规范，就是<code>node_modules</code>。系统会先当前目录找有没有适合的代码，如果找不到就往上一层文件夹找，找到<code>node_modules</code>之后就会在<code>node_modules</code>里找。找到代码，便引用成功。如果找不到就在全局里面找，还找不到就会抛出错误。</p>
+<h2 id="package-lockjson">package-lock.json</h2>
+<p>上面刚刚说到的，npm引用的时候是一层一层的往外找的，这是为什么呢？因为我们在开发的时候引用的某些依赖本身，并不是完全由该作者全程写完的。有可能某些依赖中还依赖着另一个包。所以我们会看到<code>node_modules</code>包里的文件夹里还有一个<code>package.json</code>，而他的依赖则放在当前的文件夹里的<code>node_modules</code>中。</p>
+<pre><code>├─node_modules
+   └─xxx
+      └─node_modules
+</code></pre>
+<p>这样就会产生一个问题，万一引用的依赖又套另一层依赖，这样由非常多层依赖组层。最后引用的路径就会很长，有可能会遇到不可估算的错误。另外这样也会导致同一个包会被下载多次的问题。为了解决这个问题，从npm 5（这就是为什么会有yarn 的原因） 之后<code>package-lock.json</code>出现了。他的作用是记录这项目中用到的依赖包的具体版本号，和位置信息。在每次<code>install</code>的时候他会先检查<code>node_modules</code>的首层有没有该依赖需要的包，如果有了就不下载。如果有同名的包，可是版本号需求不同，就会在该<code>package.json</code>的路径下再创建<code>node_modules</code>把那个需要的包放进去。这样由于引用的时候是一层一层外网找的，就可以确保当前依赖引用的是正确的包。也大大减少了套层的情况。</p>
+<h2 id="下载的库在哪里">下载的库在哪里？</h2>
+<p>我们都知道当我们执行<code>npm install</code>的时候，会下载我们想要的代码。可是他是从哪里下载回来的呢？npm有自己的一个代码库，也就是我们常用的https://www.npmjs.com。可是这里有个问题，这个地址的国外的服务器，会导致我们经常出现下载很慢的结果。这就出现了很多我们说的“源”。所谓的“源”就是不同的代码仓库，国内目前用的最多的应该就是阿里的源，想要改变下载代码的仓库只要执行。</p>
+<pre><code>npm install xxx --registry=https://registry.npm.taobao.org
+</code></pre>
+<p>这样我们就可以改成从阿里的服务器上下载资源。如果想要全局替换这个源，可以执行</p>
+<pre><code>npm config set registry https://registry.npm.taobao.org
+</code></pre>
+<p>这时候可能又聪明的同学要问了，能不能在不改全局配置的情况下给项目规定一个特定的源？其实在npm的安装目录下有一个<code>.npmrc</code>文件，他记录着npm的源地址，我们通过上面的命令事实上就是在修改他。如果我们想要在项目中配置特定的源，只要在项目目录下新建一个<code>.npmrc</code>文件，编辑内容：</p>
+<pre><code>registry=https://registry.npm.taobao.org
+</code></pre>
+<p>这样只要我们在这个项目下执行<code>npm install</code>都会指向我们规定的地址了。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#npm%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7">npm是一个包管理工具</a></li>
+<li><a href="#npm%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88">npm做了什么？</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8%E6%B5%81%E7%A8%8B">引用流程</a></li>
+<li><a href="#package-lockjson">package-lock.json</a></li>
+<li><a href="#%E4%B8%8B%E8%BD%BD%E7%9A%84%E5%BA%93%E5%9C%A8%E5%93%AA%E9%87%8C">下载的库在哪里？</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
