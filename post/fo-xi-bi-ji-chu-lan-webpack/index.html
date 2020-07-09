@@ -1,0 +1,351 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[佛系笔记]初览webpack | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[佛系笔记]初览webpack | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="webpack
+概念
+webpack 是一个打包工具。工作中很多时候因为时间关系，我们都有自己的任务，webpack配置的工作一般都是老大来解决。可是为了提高自己的竞争力，我觉得还是要抽时间来认真了解一下wepack。当 webpack 处..." />
+    <meta name="keywords" content="佛系笔记" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [佛系笔记]初览webpack
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-07-10
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/s_9jbd3Gk/" class="post-tag">
+                  # 佛系笔记
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="webpack">webpack</h1>
+<h2 id="概念">概念</h2>
+<p>webpack 是一个打包工具。工作中很多时候因为时间关系，我们都有自己的任务，webpack配置的工作一般都是老大来解决。可是为了提高自己的竞争力，我觉得还是要抽时间来认真了解一下wepack。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。</p>
+<h2 id="配置">配置</h2>
+<p>webpack需要别人告诉它要怎么做，也就是配置。一般写在webpack.config.js中。配置项中最重要的有四大项：</p>
+<ol>
+<li>入口</li>
+<li>输出</li>
+<li>loader</li>
+<li>插件</li>
+</ol>
+<h2 id="入口entry">入口[entry]</h2>
+<p>入口是webpack读取文件的起点，他会进入入口然后根据依赖关系，找到用到的文件，处理打包。最终输出到bundles文件。</p>
+<h3 id="1单个入口">1.单个入口</h3>
+<pre><code>module.exports = {
+    // 指定入口
+  entry: './path/to/my/entry/file.js'
+};
+module.exports = {
+    // 指定入口
+  entry: {
+    main: './path/to/my/entry/file.js'
+  }
+};
+</code></pre>
+<h3 id="2对象语法">2.对象语法</h3>
+<p>对象语法会比较繁琐。然而，这是应用程序中定义入口的最可扩展的方式。</p>
+<pre><code>const config = {
+  entry: {
+    app: './src/app.js',
+    vendors: './src/vendors.js'
+  }
+};
+</code></pre>
+<h2 id="出口output">出口[output]</h2>
+<p>output 属性告诉 webpack 在哪里输出它所创建的 bundles，以及如何命名这些文件，默认值为 ./dist。基本上，整个应用程序结构，都会被编译到你指定的输出路径的文件夹中。</p>
+<pre><code>const path = require('path');
+
+module.exports = {
+  entry: './path/to/my/entry/file.js',
+  output: {
+      // 输出路径
+    path: path.resolve(__dirname, 'dist'),
+    // 输出文件名
+    filename: 'my-first-webpack.bundle.js'
+  }
+};
+</code></pre>
+<h3 id="2-多个入口起点">2. 多个入口起点</h3>
+<p>假如入口配置了多个，出口要用占位符[name]来辨别输出的文件。</p>
+<pre><code>{
+  entry: {
+    app: './src/app.js',
+    search: './src/search.js'
+  },
+  output: {
+    filename: '[name].js',
+    path: __dirname + '/dist'
+  }
+}
+
+// 写入到硬盘：./dist/app.js, ./dist/search.js
+</code></pre>
+<h2 id="loader">loader</h2>
+<p>webpack 自身只理解 JavaScript,可是实际中我们会需要处理很多别的文件，如css,less,vue等等。这就是需要用loader。它是把这些文件转译成webpack能理解的文件。</p>
+<p>本质上，webpack loader 将所有类型的文件，转换为应用程序的依赖图（和最终的 bundle）可以直接引用的模块。</p>
+<pre><code>const path = require('path');
+
+const config = {
+  output: {
+    filename: 'my-first-webpack.bundle.js'
+  },
+  module: {
+      // 定义了一个模块 test和use是必须的配置。它告诉webpack遇到txt后缀文件，先用raw-loader处理一下。
+    rules: [
+      { test: /\.txt$/, use: 'raw-loader' }
+    ]
+  }
+};
+
+module.exports = config;
+</code></pre>
+<p>当中raw-loader需要自己下载。</p>
+<pre><code>npm install --save-dev raw-loader
+</code></pre>
+<p>loader的使用方式有三种。配置，内联，cli。当中配置是最直观明显的。loader还可以在配置中指定多个 loader。</p>
+<pre><code>  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          }
+        ]
+      }
+    ]
+  }
+</code></pre>
+<h2 id="插件plugins">插件[plugins]</h2>
+<p>实际上处理转译，webpack还需要实现打包，压缩等各种功能。这就要用到插件了。</p>
+<p>想要使用一个插件，你只需要 require() 它，然后把它添加到 plugins 数组中。多数插件可以通过选项(option)自定义。你也可以在一个配置文件中因为不同目的而多次使用同一个插件，这时需要通过使用 new 操作符来创建它的一个实例。</p>
+<pre><code>const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装
+const webpack = require('webpack'); // 用于访问内置插件
+
+const config = {
+  module: {
+    rules: [
+      { test: /\.txt$/, use: 'raw-loader' }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({template: './src/index.html'})
+  ]
+};
+
+module.exports = config;s
+</code></pre>
+<p>由于插件可以携带参数/选项，你必须在 webpack 配置中，向 plugins 属性传入 new 实例。</p>
+<pre><code>const HtmlWebpackPlugin = require('html-webpack-plugin'); //通过 npm 安装
+const webpack = require('webpack'); //访问内置的插件
+const path = require('path');
+
+const config = {
+  entry: './path/to/my/entry/file.js',
+  output: {
+    filename: 'my-first-webpack.bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        use: 'babel-loader'
+      }
+    ]
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin(),
+    new HtmlWebpackPlugin({template: './src/index.html'})
+  ]
+};
+
+module.exports = config;
+</code></pre>
+<h2 id="模式model">模式[model]</h2>
+<p>通过选择 development 或 production 之中的一个，来设置 mode 参数，可以启用相应模式下的 webpack 内置的优化</p>
+<pre><code>module.exports = {
+  mode: 'production'
+};
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#webpack">webpack</a>
+<ul>
+<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE">配置</a></li>
+<li><a href="#%E5%85%A5%E5%8F%A3entry">入口[entry]</a>
+<ul>
+<li><a href="#1%E5%8D%95%E4%B8%AA%E5%85%A5%E5%8F%A3">1.单个入口</a></li>
+<li><a href="#2%E5%AF%B9%E8%B1%A1%E8%AF%AD%E6%B3%95">2.对象语法</a></li>
+</ul>
+</li>
+<li><a href="#%E5%87%BA%E5%8F%A3output">出口[output]</a>
+<ul>
+<li><a href="#2-%E5%A4%9A%E4%B8%AA%E5%85%A5%E5%8F%A3%E8%B5%B7%E7%82%B9">2. 多个入口起点</a></li>
+</ul>
+</li>
+<li><a href="#loader">loader</a></li>
+<li><a href="#%E6%8F%92%E4%BB%B6plugins">插件[plugins]</a></li>
+<li><a href="#%E6%A8%A1%E5%BC%8Fmodel">模式[model]</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/javascriptclass-gai-zen-me-yong/">
+              <h3 class="post-title">
+                [Javascript]Class该怎么用？
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

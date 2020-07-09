@@ -1,0 +1,341 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Docker快速入门 | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Docker快速入门 | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Docker快速入门
+简述
+可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。
+这里必须了解2个很重要的概览：
+
+镜像
+容器
+
+概览一：镜像
+镜像可以理解成是光盘一..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Docker快速入门
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-28
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="docker快速入门">Docker快速入门</h1>
+<h2 id="简述">简述</h2>
+<p>可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。<br>
+这里必须了解2个很重要的概览：</p>
+<ul>
+<li>镜像</li>
+<li>容器</li>
+</ul>
+<h2 id="概览一镜像">概览一：镜像</h2>
+<p>镜像可以理解成是光盘一样的东西，载入之后就可以直接使用了。</p>
+<h3 id="下载">下载</h3>
+<p>docker的镜像可以在哪里下载呢？docker官方提供一个像github一样的仓库来存放docker的镜像。就是dockerhub。在这里可以找到一些官方的镜像或者别人修改过的第三方镜像。<br>
+<a href="https://hub.docker.com/">docerkhub地址</a><br>
+至于怎么下载，很简单只要执行以下命令即可</p>
+<pre><code>docker pull [镜像名]
+</code></pre>
+<p>docker的镜像事实上是有版本区分的在pull的时候可以指定版本。如果不指定默认会下载最新版本。</p>
+<pre><code>docker pull node:10-alpine
+</code></pre>
+<p>成功下载之后，镜像就保存在本机了。</p>
+<h3 id="查看镜像">查看镜像</h3>
+<p>下载镜像之后怎么查看自己已经有的镜像呢？<br>
+执行以下命令之后可以看到本机已经有的镜像。</p>
+<pre><code>docker images
+</code></pre>
+<p>输出信息</p>
+<pre><code>REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE 
+node                   10-alpine           852391892b9f        2 years ago         742MB
+</code></pre>
+<h3 id="运行镜像">运行镜像</h3>
+<p>接下来就可以使用我们下载的镜像了，运行镜像的命令是：</p>
+<pre><code>docker run --rm -it [镜像名]
+</code></pre>
+<p>即可运行镜像，可以看到终端已经进入自己的镜像环境了。<br>
+这里有两个参数</p>
+<ul>
+<li>--rm，关闭之后自动删除容器。</li>
+<li>-i，把交互界面保留着。</li>
+<li>-t，分配一个虚拟的终端。</li>
+</ul>
+<p>it一般都是一起出现的。<br>
+这里可以加上<code>/bin/bash</code>,可以进入容器的终端中。</p>
+<pre><code>docker run --rm -it [镜像名] /bin/bash
+</code></pre>
+<p>这时终端已经进去容器内了</p>
+<pre><code>// 看到容器内部分信息
+root@07eac52f677e:/# cat /proc/version
+Linux version 4.19.27-linuxkit (root@82332b297024) (gcc version 8.2.0 (Alpine 8.2.0)) #1 SMP Sun Mar 10 18:51:44 UTC 2019
+</code></pre>
+<p>如果要退出就执行exit即可。</p>
+<h2 id="概览二容器">概览二：容器</h2>
+<p>容器可以理解成一个提供给我们运行镜像的环境。</p>
+<h3 id="查看容器列表">查看容器列表</h3>
+<p>在运行镜像之后执行</p>
+<pre><code>docker ps -a
+</code></pre>
+<p>可以看到当前的容器列表。<br>
+这里参数<code>-a</code>代表查看所有容器。如果不加a只显示正在运行的。<br>
+这里需要提到一个参数<code>-d</code>。</p>
+<pre><code>docker run  -itd [镜像名]
+</code></pre>
+<p>加上d之后运行镜像后会返回容器id。<br>
+这是时候执行<code>docker ps -a</code>就可以看到容器列表。</p>
+<pre><code>CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS               NAMES
+0e2ba846e831        node:6.11           &quot;node&quot;              About a minute ago   Up About a minute                       focused_shannon
+</code></pre>
+<h3 id="进入容器">进入容器</h3>
+<p>用上面的命令我们可以知道自己容器的id</p>
+<pre><code>docker exec -it [容器id] /bin/bash 
+</code></pre>
+<p>这里<code>docker exec</code>是一个进入容器的命令，该命令在退出容器后，容器可以继续执行。此外命令可以直接执行命令。</p>
+<h3 id="停止容器">停止容器</h3>
+<p>假如我们需要停止容器时，只要执行<code>docker stop [容器id]</code>即可。</p>
+<h3 id="删除容器">删除容器</h3>
+<p>假如我们需要停止容器时，只要执行<code>docker rm [容器id]</code>即可。</p>
+<h2 id="数据同步">数据同步</h2>
+<p>如果容器中想用本机的内容进行操作可以用<code>-v</code>来把本机的内容挂载到容器内。</p>
+<pre><code>docker run -it -v /test:/soft centos /bin/bash
+</code></pre>
+<p>这里在容器的/soft中就会有本机中/test的文件。这里<code>:</code>前后的路径都应该用绝对路径。</p>
+<h2 id="网络端口映射">网络端口映射</h2>
+<p>容器中可以运行一些网络应用，要让外部也可以访问这些应用，可以通过 <code>-P</code> 或 <code>-p</code> 参数来指定端口映射。</p>
+<ul>
+<li>-P :是容器内部端口随机映射到主机的高端口。</li>
+<li>-p : 是容器内部端口绑定到指定的主机端口。</li>
+</ul>
+<p>如果用<code>-P</code>运行容器之后，可以用<code>docker ps</code>看到端口情况。</p>
+<pre><code>// 运行镜像
+runoob@runoob:~$ docker run -d -P training/webapp python app.py
+fce072cc88cee71b1cdceb57c2821d054a4a59f67da6b416fceb5593f059fc6d
+
+// 查看看端口情况
+runoob@runoob:~$ docker ps
+CONTAINER ID    IMAGE               COMMAND            ...           PORTS                     NAMES
+fce072cc88ce    training/webapp     &quot;python app.py&quot;    ...     0.0.0.0:32768-&gt;5000/tcp   grave_hopper
+</code></pre>
+<p>如果是用<code>-p</code>运行容器，可以指定端口映射。</p>
+<pre><code>runoob@runoob:~$ docker run -d -p 5000:5000 training/webapp python app.py
+33e4523d30aaf0258915c368e66e03b49535de0ef20317d3f639d40222ba6bc0
+</code></pre>
+<p>另外，我们可以指定容器绑定的网络地址，比如绑定 127.0.0.1。</p>
+<pre><code>runoob@runoob:~$ docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
+6779686f06f6204579c1d655dd8b2b31e8e809b245a97b2d3a8e35abe9dcd22a
+</code></pre>
+<h3 id="查看端口情况">查看端口情况</h3>
+<p>docker port 命令可以让我们快捷地查看端口的绑定情况。</p>
+<pre><code>runoob@runoob:~$ docker port adoring_stonebraker 5000
+127.0.0.1:5001
+</code></pre>
+<h2 id="网络">网络</h2>
+<p>上面如果我们通过端口映射可以搭建一个从容器链接本机的关系。这样就可以通过不同的容器链接到主机，然后间接链接不同的容器。这是一些简单程序的方法。如果想要让容器之间直接链接需要可以使用【网络】。</p>
+<h3 id="新建网络">新建网络</h3>
+<pre><code> docker network create -d bridge 【网络名】
+</code></pre>
+<ul>
+<li>-d：参数指定 Docker 网络类型，有 bridge、overlay。其中 overlay 网络类型用于 Swarm mode，在本小节中你可以忽略它。</li>
+</ul>
+<h3 id="连接容器">连接容器</h3>
+<pre><code>// 运行第一个容器并链接到刚刚创建的网络
+docker run -itd --name test1 --network test-net ubuntu /bin/bash
+// 运行第二个容器并链接到刚刚创建的网络
+docker run -itd --name test2 --network test-net ubuntu /bin/bash
+</code></pre>
+<p>此时进入其中一个容器</p>
+<pre><code>docker exec -it test1 /bin/bash
+</code></pre>
+<p>用ping来证实容器已经链接</p>
+<pre><code>ping test2
+</code></pre>
+<p>可以看到test1和test2已经链接了。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8">Docker快速入门</a>
+<ul>
+<li><a href="#%E7%AE%80%E8%BF%B0">简述</a></li>
+<li><a href="#%E6%A6%82%E8%A7%88%E4%B8%80%E9%95%9C%E5%83%8F">概览一：镜像</a>
+<ul>
+<li><a href="#%E4%B8%8B%E8%BD%BD">下载</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F">查看镜像</a></li>
+<li><a href="#%E8%BF%90%E8%A1%8C%E9%95%9C%E5%83%8F">运行镜像</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A6%82%E8%A7%88%E4%BA%8C%E5%AE%B9%E5%99%A8">概览二：容器</a>
+<ul>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E5%88%97%E8%A1%A8">查看容器列表</a></li>
+<li><a href="#%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8">进入容器</a></li>
+<li><a href="#%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8">停止容器</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8">删除容器</a></li>
+</ul>
+</li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5">数据同步</a></li>
+<li><a href="#%E7%BD%91%E7%BB%9C%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84">网络端口映射</a>
+<ul>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3%E6%83%85%E5%86%B5">查看端口情况</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BD%91%E7%BB%9C">网络</a>
+<ul>
+<li><a href="#%E6%96%B0%E5%BB%BA%E7%BD%91%E7%BB%9C">新建网络</a></li>
+<li><a href="#%E8%BF%9E%E6%8E%A5%E5%AE%B9%E5%99%A8">连接容器</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/javasricptobjectdefineproperty/">
+              <h3 class="post-title">
+                [javasricpt]Object.defineProperty
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

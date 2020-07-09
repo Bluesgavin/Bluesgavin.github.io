@@ -1,0 +1,426 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[VUE]vue知识漏洞恶补 | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[VUE]vue知识漏洞恶补 | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="平时习惯了用自己所知的方法来解决问题。今天看到自己之前写的组件被同事改了一下，看到一些没怎么用过的方法。特意去恶补了一下，算给自己打个补丁并记录一下。
+provide/inject
+provide,inject这个东西，说实话我个人觉得至此..." />
+    <meta name="keywords" content="VUE" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [VUE]vue知识漏洞恶补
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-07-05
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/Ypnq0bUjm/" class="post-tag">
+                  # VUE
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>平时习惯了用自己所知的方法来解决问题。今天看到自己之前写的组件被同事改了一下，看到一些没怎么用过的方法。特意去恶补了一下，算给自己打个补丁并记录一下。</p>
+<h2 id="provideinject">provide/inject</h2>
+<p>provide,inject这个东西，说实话我个人觉得至此为止，我遇到的工作中他能用的场景其实不多。这个东西就是props的加强版。<br>
+一搬父子传参我们可以用：</p>
+<h3 id="1props">1.props</h3>
+<p>父子组件间通过属性的写法，直接传参。</p>
+<pre><code>// 父组件
+&lt;children :parmas=&quot;data&quot;&gt;&lt;/children&gt;
+</code></pre>
+<pre><code>// 子组件用props接
+props:{
+    data: Object
+}
+// 使用时直接在本vue实例用调
+this.data
+</code></pre>
+<h3 id="2vuex">2.vuex</h3>
+<p>状态管理就是一个全局的库，在根部注册后，在任意实例中都可以通过store调用变量。</p>
+<pre><code>this.$store.state
+</code></pre>
+<h3 id="3provideinject">3.provide/inject</h3>
+<p>这个就是介于前两者之间的东西。他是通过在某一父组件中注册一个变量。在其子孙组件中可以调用其变量。不局限在直接父子间。<br>
+用法：</p>
+<pre><code>// 父组件中
+  export default {
+    name: &quot;Parent&quot;,
+    provide: {
+      for: &quot;demo&quot;
+    }
+  }
+</code></pre>
+<pre><code>// 子孙组件
+  export default {
+    name: &quot;grandson&quot;,
+    inject: ['for']
+  }
+// 调用也是跟props一样
+this.for
+</code></pre>
+<p>provide/inject就是一个局部的小库。在一些整体没有必要引Vuex，在某个模块中又需要用到一个库的项目中它是可以考虑的选择。</p>
+<h2 id="directive自定义指令">directive（自定义指令）</h2>
+<p>需要批量操作特定dom的时候，特别是需要用到dom节点的时候。可以考虑用自定义指令完成。 这个官网解释得很详细。<a href="https://cn.vuejs.org/v2/guide/custom-directive.html">自定义指令</a></p>
+<h3 id="1注册">1.注册</h3>
+<pre><code>// 注意是在根部Vue调用directive注册，这里写指令的时候不需要加&quot;v-&quot;
+Vue.directive('focus', {
+  inserted: function (el) {
+    el.focus()
+  }
+})
+</code></pre>
+<h3 id="2使用">2.使用</h3>
+<pre><code>// 直接加&quot;v-&quot;即可，dom被直接聚焦
+&lt;input v-focus&gt;
+</code></pre>
+<h3 id="3生命周期钩子">3.生命周期（钩子）</h3>
+<ul>
+<li>bind：只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置。</li>
+<li>inserted：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。</li>
+<li>update：所在组件的 VNode 更新时调用，但是可能发生在其子 VNode 更新之前。指令的值可能发生了改变，也可能没有。但是你可以通过比较更新前后的值来忽略不必要的模板更新 (详细的钩子函数参数见下)。</li>
+<li>componentUpdated：指令所在组件的 VNode 及其子 VNode 全部更新后调用。</li>
+<li>unbind：只调用一次，指令与元素解绑时调用。</li>
+</ul>
+<h3 id="4参数解析">4.参数解析</h3>
+<ul>
+<li>el：指令所绑定的元素，可以用来直接操作 DOM 。</li>
+<li>binding：一个对象，包含以下属性：
+<ol>
+<li>name：指令名，不包括 v- 前缀。</li>
+<li>value：指令的绑定值，例如：v-my-directive=&quot;1 + 1&quot; 中，绑定值为 2。</li>
+<li>oldValue：指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。</li>
+<li>expression：字符串形式的指令表达式。例如 v-my-directive=&quot;1 + 1&quot; 中，表达式为 &quot;1 + 1&quot;。</li>
+<li>arg：传给指令的参数，可选。例如 v-my-directive:foo 中，参数为 &quot;foo&quot;。</li>
+<li>modifiers：一个包含修饰符的对象。例如：v-my-directive.foo.bar 中，修饰符对象为 { foo: true, bar: true }。</li>
+</ol>
+</li>
+<li>vnode：Vue 编译生成的虚拟节点。移步 VNode API 来了解更多详情。</li>
+<li>oldVnode：上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。</li>
+</ul>
+<h2 id="slot">slot</h2>
+<p>slot是一个插槽。子组件假如是一个常用的模板，可是当中的内容又想要跟据父组件的不同有所不同。那么slot就可以排上用场。而slot本身有三种用法。</p>
+<h3 id="1单个插槽-默认插槽-匿名插槽">1.单个插槽| 默认插槽| 匿名插槽</h3>
+<pre><code>// 父组件
+&lt;template&gt;
+    &lt;div class=&quot;father&quot;&gt;
+        &lt;h3&gt;父组件&lt;/h3&gt;
+        // child是子组件
+        &lt;child&gt;
+            // 里面内容便是插槽内容
+            &lt;div class=&quot;tmpl&quot;&gt;
+              &lt;span&gt;菜单1&lt;/span&gt;
+              &lt;span&gt;菜单2&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/child&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code>// 子组件
+&lt;template&gt;
+    &lt;div class=&quot;child&quot;&gt;
+        &lt;h3&gt;子组件&lt;/h3&gt;
+        // 插槽预留位置
+        &lt;slot&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<p>这样最终渲染出来的效果就是</p>
+<pre><code>&lt;div class=&quot;father&quot;&gt;
+        &lt;h3&gt;父组件&lt;/h3&gt;
+         &lt;div class=&quot;child&quot;&gt;
+        &lt;h3&gt;子组件&lt;/h3&gt;
+          &lt;div class=&quot;tmpl&quot;&gt;
+              &lt;span&gt;菜单1&lt;/span&gt;
+              &lt;span&gt;菜单2&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+    &lt;/div&gt;
+</code></pre>
+<p>这样子组件的内容便可以根据不同父组件的插槽内容来改变适应项目场景。</p>
+<h3 id="2具名插槽">2.具名插槽</h3>
+<pre><code>// 父组件
+&lt;template&gt;
+    &lt;div class=&quot;father&quot;&gt;
+        &lt;h3&gt;父组件&lt;/h3&gt;
+        &lt;child&gt;
+            &lt;div class=&quot;tmpl&quot; slot=&quot;up&quot;&gt;
+              &lt;span&gt;菜单1&lt;/span&gt;
+              &lt;span&gt;菜单2&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/child&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;child&quot;&gt;
+    &lt;slot name=&quot;up&quot;&gt;&lt;/slot&gt;
+    &lt;h3&gt;这里是子组件&lt;/h3&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<p>父组件中有slot属性注明的插槽内容会对应插入到slot 对应name的节点上。而匿名slot用法依旧。</p>
+<h3 id="3-作用域插槽-带数据的插槽">3. 作用域插槽| 带数据的插槽</h3>
+<p>父组件在调用slot时可以访问子组件中的数据。</p>
+<pre><code>// 子组件中
+&lt;template&gt;
+  &lt;div class=&quot;child&quot;&gt;
+    &lt;h3&gt;这里是子组件&lt;/h3&gt;
+    // 作用域插槽data在script中定义
+    &lt;slot  :data=&quot;data&quot;&gt;&lt;/slot&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code>// 父组件
+&lt;template&gt;
+    &lt;div class=&quot;father&quot;&gt;
+        &lt;h3&gt;父组件&lt;/h3&gt;
+        &lt;child&gt;
+          &lt;template slot-scope=&quot;user&quot;&gt;
+                &lt;div class=&quot;tmpl&quot;&gt;
+                  &lt;span v-for=&quot;item in user.data&quot;&gt;{{item}}&lt;/span&gt;
+                &lt;/div&gt;
+          &lt;/template&gt;
+    &lt;/child&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+</code></pre>
+<p>注意：slot是否使用是根据父组件调用时子组件标签中是否包含其他html模板，假如没有模板slot是无效的。</p>
+<h2 id="vueuse">vue.use</h2>
+<p>平时全局注册组件或者工具，我们会用到use。但其实use，我们在自己的项目中也能针对自己的工具制定。</p>
+<h3 id="vueuse其实就是调用了一个函数">vue.use其实就是调用了一个函数。</h3>
+<pre><code>    // main.js中
+    import Vue from 'vue';
+    import test form &quot;./use&quot;
+    Vue.use(test);
+</code></pre>
+<pre><code>    //use.js中
+    export default function(a,b,c,d){
+        console.log(a,b,c,d)
+    }
+
+
+    // 打印输出结果是
+    ƒ Vue (options) {
+        if ( true &amp;&amp;
+        !(this instanceof Vue)
+    ) {
+        warn('Vue is a constructor and should be called with the `new` keyword');
+        }
+        this._init(options);
+    } undefined undefined undefined
+</code></pre>
+<p>函数会传入一个Vue对象。这就可以让我们定制自己的内容。</p>
+<h3 id="批量注册">批量注册</h3>
+<p>平时全局注册组件时。会用Vue.component()</p>
+<pre><code>    // use.js中
+    import component1 from &quot;./component1&quot;;
+    import component2 from &quot;./component2&quot;;
+    import component3 from &quot;./component3&quot;;
+    ...
+
+    Vue.component(component1,component1);
+    Vue.component(component2,component2);
+    Vue.component(component3,component3);
+    ...
+</code></pre>
+<p>这样就可以批量注册Vue组件了。</p>
+<h3 id="添加自己的vue方法">添加自己的vue方法</h3>
+<p>在use中可以定制添加自己常用的方法。</p>
+<pre><code>    // use.js中
+    function add(){
+        ...
+    }
+    
+    
+    Vue.prototype.add = add
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#provideinject">provide/inject</a>
+<ul>
+<li><a href="#1props">1.props</a></li>
+<li><a href="#2vuex">2.vuex</a></li>
+<li><a href="#3provideinject">3.provide/inject</a></li>
+</ul>
+</li>
+<li><a href="#directive%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4">directive（自定义指令）</a>
+<ul>
+<li><a href="#1%E6%B3%A8%E5%86%8C">1.注册</a></li>
+<li><a href="#2%E4%BD%BF%E7%94%A8">2.使用</a></li>
+<li><a href="#3%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90">3.生命周期（钩子）</a></li>
+<li><a href="#4%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90">4.参数解析</a></li>
+</ul>
+</li>
+<li><a href="#slot">slot</a>
+<ul>
+<li><a href="#1%E5%8D%95%E4%B8%AA%E6%8F%92%E6%A7%BD-%E9%BB%98%E8%AE%A4%E6%8F%92%E6%A7%BD-%E5%8C%BF%E5%90%8D%E6%8F%92%E6%A7%BD">1.单个插槽| 默认插槽| 匿名插槽</a></li>
+<li><a href="#2%E5%85%B7%E5%90%8D%E6%8F%92%E6%A7%BD">2.具名插槽</a></li>
+<li><a href="#3-%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD-%E5%B8%A6%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8F%92%E6%A7%BD">3. 作用域插槽| 带数据的插槽</a></li>
+</ul>
+</li>
+<li><a href="#vueuse">vue.use</a>
+<ul>
+<li><a href="#vueuse%E5%85%B6%E5%AE%9E%E5%B0%B1%E6%98%AF%E8%B0%83%E7%94%A8%E4%BA%86%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0">vue.use其实就是调用了一个函数。</a></li>
+<li><a href="#%E6%89%B9%E9%87%8F%E6%B3%A8%E5%86%8C">批量注册</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%B7%B1%E7%9A%84vue%E6%96%B9%E6%B3%95">添加自己的vue方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/vuevuex-bi-ji/">
+              <h3 class="post-title">
+                [VUE]VUEX笔记
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

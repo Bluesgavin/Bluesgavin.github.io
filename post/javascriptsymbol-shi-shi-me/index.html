@@ -1,0 +1,278 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[javascript]symbol是什么？ | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[javascript]symbol是什么？ | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="symbol
+symbol是ES6中一种新的数据类型。平时很少会用到，今天特意了解一下。或许某天遇到什么需求可以派上用场。
+首先它是一种新的数据类型
+使用方法
+let e = Symbol()
+
+这样便创建了一个Symbol实例。如果我们用..." />
+    <meta name="keywords" content="javasricpt" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [javascript]symbol是什么？
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-07-12
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/2UOyrMpQK/" class="post-tag">
+                  # javasricpt
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="symbol">symbol</h1>
+<p>symbol是ES6中一种新的数据类型。平时很少会用到，今天特意了解一下。或许某天遇到什么需求可以派上用场。</p>
+<h2 id="首先它是一种新的数据类型">首先它是一种新的数据类型</h2>
+<p>使用方法</p>
+<pre><code>let e = Symbol()
+</code></pre>
+<p>这样便创建了一个Symbol实例。如果我们用typeof来检查它，会返回symbol，一个新的类型。</p>
+<pre><code>typeof e //symbol
+</code></pre>
+<h2 id="它是唯一的">它是唯一的</h2>
+<p>每个symbol实例都是唯一的。</p>
+<pre><code>let s1 = Symbol()
+let s2 = Symbol('another symbol')
+let s3 = Symbol('another symbol')
+
+s1 === s2 // false
+s2 === s3 // false
+</code></pre>
+<h2 id="对象属性">对象属性</h2>
+<p>正因为他是唯一的。我们可以把他做对象的特定属性。</p>
+<pre><code>const PROP_NAME = Symbol()
+const PROP_AGE = Symbol()
+
+let obj = {
+  [PROP_NAME]: &quot;属性&quot;
+  [PROP_AGE] = 18
+}
+
+obj[PROP_NAME] // '属性'
+obj[PROP_AGE] // 18
+</code></pre>
+<h3 id="对象中的symbol不能普通方法列举">对象中的Symbol不能普通方法列举</h3>
+<p>Symbol类型的key是不能通过Object.keys()或者for...in来枚举的，它未被包含在对象自身的属性名集合(property names)之中。</p>
+<pre><code>let obj = {
+   [Symbol('name')]: 'name',
+   age: 18,
+   title: 'Engineer'
+}
+
+Object.keys(obj)   // ['age', 'title']
+
+for (let p in obj) {
+   console.log(p)   // 分别会输出：'age' 和 'title'
+}
+
+Object.getOwnPropertyNames(obj)   // ['age', 'title']
+</code></pre>
+<p>所以可以用Symbol存放一些不需要对外操作的属性。</p>
+<h2 id="枚举symbol">枚举Symbol</h2>
+<p>Symbol有自己特定的枚举方法。</p>
+<pre><code>// 使用Object的API
+Object.getOwnPropertySymbols(obj) // [Symbol(name)]
+
+// 使用新增的反射API
+Reflect.ownKeys(obj) // [Symbol(name), 'age', 'title']
+</code></pre>
+<h2 id="场景">场景</h2>
+<p>按他的特性来说能我遇到过需要Symbol用场景确实不是很多。他主要是可以通过它的唯一性代替常量。</p>
+<pre><code>// 原来情况
+export const FECTH_PROJECT_ROOT = 'fetchProjectRoot'
+export const DELETE_FILE = 'deleteFile'
+
+let obj={
+    [FECTH_PROJECT_ROOT]:{
+
+    },
+    [DELETE_FILE]:{
+
+    }
+}
+</code></pre>
+<p>可以改用Symbol</p>
+<pre><code>export const FECTH_PROJECT_ROOT = Symbol();
+export const DELETE_FILE = Symbol();
+
+let obj={
+    [FECTH_PROJECT_ROOT]:{
+
+    },
+    [DELETE_FILE]:{
+
+    }
+}
+</code></pre>
+<p>或者switch等，类似的情况。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#symbol">symbol</a>
+<ul>
+<li><a href="#%E9%A6%96%E5%85%88%E5%AE%83%E6%98%AF%E4%B8%80%E7%A7%8D%E6%96%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">首先它是一种新的数据类型</a></li>
+<li><a href="#%E5%AE%83%E6%98%AF%E5%94%AF%E4%B8%80%E7%9A%84">它是唯一的</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7">对象属性</a>
+<ul>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84symbol%E4%B8%8D%E8%83%BD%E6%99%AE%E9%80%9A%E6%96%B9%E6%B3%95%E5%88%97%E4%B8%BE">对象中的Symbol不能普通方法列举</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9E%9A%E4%B8%BEsymbol">枚举Symbol</a></li>
+<li><a href="#%E5%9C%BA%E6%99%AF">场景</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/pythonyi-qi-xue-python1/">
+              <h3 class="post-title">
+                [python]一起学python（1）
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

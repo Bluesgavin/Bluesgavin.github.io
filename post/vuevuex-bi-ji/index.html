@@ -1,0 +1,408 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[VUE]VUEX笔记 | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[VUE]VUEX笔记 | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Vue绑定方式
+v-model
+v-model是专门用于input,select,textare等表单控件的绑定。它可以渲染变量在dom上，同时控件的value改变时，对应变量也会做出改变。（在表单控件或者组件上创建双向绑定）。
+  &lt..." />
+    <meta name="keywords" content="VUE" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [VUE]VUEX笔记
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-07-05
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/Ypnq0bUjm/" class="post-tag">
+                  # VUE
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="vue绑定方式">Vue绑定方式</h1>
+<h2 id="v-model">v-model</h2>
+<p>v-model是专门用于input,select,textare等表单控件的绑定。它可以渲染变量在dom上，同时控件的value改变时，对应变量也会做出改变。（在表单控件或者组件上创建双向绑定）。</p>
+<pre><code>  &lt;input type=&quot;text&quot; v-model=&quot;name&quot;&gt;
+  &lt;textarea v-model=&quot;message&quot; placeholder=&quot;add multiple lines&quot;&gt;&lt;/textarea&gt;
+  &lt;input type=&quot;checkbox&quot; id=&quot;checkbox&quot; v-model=&quot;checked&quot;&gt;
+  &lt;input type=&quot;radio&quot; id=&quot;one&quot; value=&quot;One&quot; v-model=&quot;picked&quot;&gt;
+  &lt;select v-model=&quot;selected&quot;&gt;
+        &lt;option disabled value&gt;请选择&lt;/option&gt;
+        &lt;option&gt;A&lt;/option&gt;
+        &lt;option&gt;B&lt;/option&gt;
+        &lt;option&gt;C&lt;/option&gt;
+  &lt;/select&gt;
+</code></pre>
+<h2 id="v-bind">v-bind</h2>
+<p>动态地绑定一个或多个特性，或一个组件 prop 到表达式。就是把属性变量化，class，style等可以根据变量来改变。同时也是父组件往子组件传值的方法。</p>
+<pre><code>&lt;img v-bind:src=&quot;imageSrc&quot; :title=&quot;imageNum&quot;&gt;
+</code></pre>
+<p>v-bind:可以简写成:。例子中图片的地址和title都是来自于vue实例里的变量。</p>
+<h1 id="vuex">Vuex</h1>
+<p>vuex 是一个专门为vue.js应用程序开发的状态管理模式。<br>
+这个状态我们可以理解为在data中的属性，需要共享给其他组件使用的部分。<br>
+也就是说，是我们需要共享的data，使用vuex进行统一集中式的管理。<br>
+vuex周期的大概流程是，在vue实例中调用store下的state后，想要改变state，要先通过store.commit（有异步操作要先dispath）来改变state，从而在vue页面中渲染。<br>
+<img src="https://vuex.vuejs.org/vuex.png" alt="avatar" loading="lazy"></p>
+<h2 id="state">state</h2>
+<p>store里的数据源库（一个全局的data），可在全局调用$store.state访问。<br>
+每当 state 变化的时候, 都会重新求取计算属性，并且触发更新相关联的 DOM。<br>
+在store里</p>
+<pre><code>state:{
+    name:&quot;张三&quot;
+}
+</code></pre>
+<p>vue实例</p>
+<pre><code>    &lt;div&gt;用户名: {{$store.state.name}}&lt;/div&gt;
+</code></pre>
+<p>引用vuex后，在项目任意vue实例里都可以访问到state的内容。</p>
+<h2 id="getter">Getter</h2>
+<p>从 store 中的 state 中派生出一些状态。（可以认为是对数据获取之前的再次编译， store 的计算属性）。他并不会改变state本身。只有当它的依赖值发生了改变才会被重新计算。（类似于vue实例的computed）<br>
+Getter 接受 state 作为其第一个参数,可以访问store里的state</p>
+<pre><code>    getters: {
+        doneTodos: state =&gt; {
+            return state.todos.filter(todo =&gt; todo.done)
+        }
+     }
+</code></pre>
+<p>第二个参数是getters，可以访问到上下文的getters。</p>
+<pre><code>    getters: {
+        doneTodosCount: (state, getters) =&gt; {
+            return getters.doneTodos.length
+        }
+    }
+</code></pre>
+<p>假如需要传参，可以通过方法访问</p>
+<pre><code>    getters: {
+         getTodoById: (state) =&gt; (id) =&gt; {
+            return state.todos.find(todo =&gt; todo.id === id)
+        }
+    }
+</code></pre>
+<p>在vue实例中访问getters</p>
+<pre><code>computed:{
+    doneTodosCount () {
+        return this.$store.getters.doneTodosCount
+  }
+}
+</code></pre>
+<h2 id="mutation">mutation</h2>
+<p>mutation是更改 Vuex 的 store 中的状态的唯一方法。需要用store.commit()触发。<br>
+mutations:第一个参数是state，第二个参数是载荷（Payload）。即传参，在大多数情况下，载荷应该是一个对象。<br>
+非常重要的一点，mutation内必须是同步函数。</p>
+<pre><code>mutations: {
+  increment (state, payload) {
+    state.count += payload.amount
+  }
+}
+</code></pre>
+<p>执行时store.commit（）第一个参数是mutations的名称（字符串）,第二个是载荷对象。</p>
+<pre><code>store.commit('increment', {
+  amount: 10
+})；
+</code></pre>
+<h2 id="action">Action</h2>
+<p>Action是专门处理store异步操作的。<br>
+Action 提交的是 mutation，而不是直接变更状态。<br>
+Action 通过store.dispatch()触发。<br>
+actions第一个参数是context（上下文），第二个参数是载荷。</p>
+<pre><code>actions: {
+  incrementAsync ({ commit }) {
+    setTimeout(() =&gt; {
+      commit('increment')
+    }, 1000)
+  }
+}
+</code></pre>
+<p>vue实例里执行action。</p>
+<pre><code>store.dispatch('incrementAsync', {
+  amount: 10
+})
+</code></pre>
+<h2 id="module">Module</h2>
+<p>由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。<br>
+module 可以把store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter。<br>
+store.js</p>
+<pre><code>const moduleA = {
+  state: { ... },
+  mutations: { ... },
+  actions: { ... },
+  getters: { ... }
+}
+
+const moduleB = {
+  state: { ... },
+  mutations: { ... },
+  actions: { ... }
+}
+
+const store = new Vuex.Store({
+  modules: {
+    a: moduleA,
+    b: moduleB
+  }
+})
+</code></pre>
+<p>在vue实例里访问时</p>
+<pre><code>$store.state.a // -&gt; moduleA 的状态
+$store.state.b // -&gt; moduleB 的状态
+</code></pre>
+<p>这种写法下state会区分模块，但mutation和action的调用时，写法是一样的。</p>
+<pre><code>$store.commit(“set”);
+$store.dispath(“set”);
+</code></pre>
+<h3 id="命名空间">命名空间</h3>
+<p>假如不同的模块里有出现相同名称的mutations，就会出现问题。为了避免，可以使用命名空间。<br>
+在每个模块下添加namespaced: true。即可实现命名空间。</p>
+<pre><code>const moduleA = {
+  namespaced: true，
+  state: { ... },
+  mutations: { ... },
+  actions: { ... },
+  getters: { ... }
+}
+
+const moduleB = {
+  namespaced: true，
+  state: { ... },
+  mutations: { ... },
+  actions: { ... }
+}
+
+const store = new Vuex.Store({
+  modules: {
+    a: moduleA,
+    b: moduleB
+  }
+})
+</code></pre>
+<p>在vue实例中调用时改为</p>
+<pre><code>$store.commit(“a/set”);
+$store.dispath(“b/set”);
+</code></pre>
+<h2 id="vuex和data">vuex和data</h2>
+<p>vuex是全局存在的，对于一些只在一个vue页面(组件)中用到的信息，可以只存在对于的页面(组件)的data中。store中一般存放一些在多处会读取或者改写的信息，这样可以避免多层的父子传值。一般常见的存放在store里的有用户信息，标签信息等。这样可以在不同的地方操作标签。<br>
+例子：在一个项目中有一个右键弹出菜单的组件。组件需要传参，来决定传入内容。<br>
+store里</p>
+<pre><code>{
+    state:{
+        rightMenuData: [{
+            name: '刷新此窗口',
+            key: 'refresh'
+        }, 
+        {
+            name: '关闭此窗口',
+            key: 'close'
+        }, {
+            name: '关闭全部窗口',
+            key: 'closeAll'
+         }]
+    }
+}
+</code></pre>
+<p>vue页面中</p>
+<pre><code>&lt;right-menu
+    :menuData=&quot;rightMenuData&quot;
+    :eventHandler=&quot;rightClickHandler&quot;
+    v-on:handleSelect=&quot;handleRightSelect&quot;
+&gt;&lt;/right-menu&gt;
+</code></pre>
+<p>列子中的菜单内容存在store里，在一个页面里调用了对应数据。可是实际上项目里只要一个页面需要用到这个数据。这种情况可以把数据只放到页面data里，避免store过于臃肿。</p>
+<p>另一个例子:<br>
+vue页面中</p>
+<pre><code>    mounted() {
+    let user = global.myLocalStorage.getItem(&quot;user&quot;);
+    if (user) {
+      user = JSON.parse(user);
+      this.sysUserName = user.name || &quot;&quot;;
+      this.sysUserAvatar = user.avatar || &quot;agree.bee.png&quot;;
+    }
+    //...省略部分
+</code></pre>
+<p>这里页面中用到一个用户信息，由于本地保存的关系，用户数据被存到localstorage里。然后项目在各处拿用户信息的时候会直接从localstorage里拿。这种情况，可以考虑，在页面打开时，只从localstorage拿一次数据，存在store里。在项目运行的过程中就可以直接在store里访问用户信息。</p>
+<h2 id="多个store运用">多个store运用</h2>
+<p>在一些大型应用中，有可能存在多个store的情况，来保持自身的store不受影响。<br>
+例子：A实例下面有多个vue子页面b,c,d。它们都需要有自己的store。则在内部Vue实例中new一个vuex.store，并存起来（不一定要存$store，可以是其他变量）。</p>
+<pre><code>    beforeCreate(){
+        this.$store = new Vuex.store({
+            stata,
+            mutations,
+            actions
+        })
+    }
+</code></pre>
+<p>此时vue实例b,c,d中</p>
+<pre><code>this.$store
+</code></pre>
+<p>返回的应该是自己的store。<br>
+如果想要访问A页面原来的store，可以用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>o</mi><mi>o</mi><mi>t</mi><mo separator="true">,</mo><mi mathvariant="normal">访</mi><mi mathvariant="normal">问</mi><mi mathvariant="normal">根</mi><mi mathvariant="normal">部</mi><mi>v</mi><mi>u</mi><mi>e</mi><mi mathvariant="normal">实</mi><mi mathvariant="normal">例</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">由</mi><mi mathvariant="normal">于</mi><mi mathvariant="normal">他</mi><mi mathvariant="normal">的</mi><mi>t</mi><mi>h</mi><mi>i</mi><mi>s</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">root,访问根部vue实例，由于他的this.</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">访</span><span class="mord cjk_fallback">问</span><span class="mord cjk_fallback">根</span><span class="mord cjk_fallback">部</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span><span class="mord cjk_fallback">实</span><span class="mord cjk_fallback">例</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">由</span><span class="mord cjk_fallback">于</span><span class="mord cjk_fallback">他</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord">.</span></span></span></span>store并没有被重写，所以指向的还是原来全局的store。</p>
+<pre><code>this.$root.$store
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#vue%E7%BB%91%E5%AE%9A%E6%96%B9%E5%BC%8F">Vue绑定方式</a>
+<ul>
+<li><a href="#v-model">v-model</a></li>
+<li><a href="#v-bind">v-bind</a></li>
+</ul>
+</li>
+<li><a href="#vuex">Vuex</a>
+<ul>
+<li><a href="#state">state</a></li>
+<li><a href="#getter">Getter</a></li>
+<li><a href="#mutation">mutation</a></li>
+<li><a href="#action">Action</a></li>
+<li><a href="#module">Module</a>
+<ul>
+<li><a href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4">命名空间</a></li>
+</ul>
+</li>
+<li><a href="#vuex%E5%92%8Cdata">vuex和data</a></li>
+<li><a href="#%E5%A4%9A%E4%B8%AAstore%E8%BF%90%E7%94%A8">多个store运用</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

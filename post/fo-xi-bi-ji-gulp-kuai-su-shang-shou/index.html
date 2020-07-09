@@ -1,0 +1,299 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[佛系笔记]gulp快速上手 | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[佛系笔记]gulp快速上手 | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="gulp
+安装
+需要全局安装cli
+npm install --global gulp-cli
+
+项目本身安装gulp
+npm install --save-dev gulp
+
+在项目里用gulp --version看到两者版本
+CLI v..." />
+    <meta name="keywords" content="佛系笔记" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [佛系笔记]gulp快速上手
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-08-22
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/s_9jbd3Gk/" class="post-tag">
+                  # 佛系笔记
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="gulp"><a href="https://www.gulpjs.com.cn/">gulp</a></h1>
+<h2 id="安装">安装</h2>
+<p>需要全局安装cli</p>
+<pre><code>npm install --global gulp-cli
+</code></pre>
+<p>项目本身安装gulp</p>
+<pre><code>npm install --save-dev gulp
+</code></pre>
+<p>在项目里用<code>gulp --version</code>看到两者版本</p>
+<pre><code>CLI version 2.0.1
+Local version 4.0.0
+</code></pre>
+<h2 id="入口文件gulpfile">入口文件(gulpfile)</h2>
+<p>在项目根目录创建gulpfile.js作为gulp入口文件。gulpfile.js中除了可以写gulp本身api,JavaScript和node也可以正常书写。但如果用到其他ts或es6则需要编译一下。</p>
+<h2 id="api">api</h2>
+<p>先讲一下gulpfile的基本结构，文件需要暴露一些task。其中default会直接调用。</p>
+<pre><code>var gulp = require('gulp');
+function defaultTask(cb) {
+    cb();
+}
+exports.default = defaultTask
+</code></pre>
+<p>假如暴露的是其他task，则命令则需要用gulp加对应task名称启动。</p>
+<pre><code>var gulp = require('gulp');
+function defaultTask(cb) {
+    cb();
+}
+exports.copy = defaultTask
+</code></pre>
+<p>以上任务用<code>gulp copy</code>调用。用<code>gulp --tasks</code>可以查看所有task;</p>
+<h4 id="src"><a href="https://www.gulpjs.com.cn/docs/api/src/">src</a>(globs, [options])</h4>
+<p>gulp中文件处理的是Vinyl对象。src()是文件的入口，创建Vinyl对象。第二个参数option是配置对象。</p>
+<h4 id="dest"><a href="https://www.gulpjs.com.cn/docs/api/dest/">dest</a>(directory, [options])</h4>
+<p>创建一个用于将 Vinyl 对象写入到文件系统的流。</p>
+<pre><code>const { src, dest } = require('gulp');
+
+function copy() {
+  return src('input/*.js')
+    .pipe(dest('output/'));
+}
+
+exports.copy = copy;
+</code></pre>
+<p>会先找到input文件夹下后缀名为js的所有文件，然后复制一份到output下。</p>
+<h4 id="watch"><a href="https://www.gulpjs.com.cn/docs/api/watch/">watch</a>(globs, [options], [task])</h4>
+<p>监听 globs 并在发生更改时运行任务。任务与任务系统的其余部分被统一处理。用on可以监听不同的事件</p>
+<pre><code>const { watch } = require('gulp');
+
+const watcher = watch(['input/*.js']);
+
+watcher.on('change', function(path, stats) {
+  console.log(`File ${path} was changed`);
+});
+
+watcher.on('add', function(path, stats) {
+  console.log(`File ${path} was added`);
+});
+
+watcher.on('unlink', function(path, stats) {
+  console.log(`File ${path} was removed`);
+});
+
+watcher.close();
+</code></pre>
+<h2 id="globs"><a href="https://www.gulpjs.com.cn/docs/getting-started/explaining-globs/">globs</a></h2>
+<p>src()的第一个参数称为globs。不同于正则他有自己的规则。<br>
+glob 是由普通字符和/或通配字符组成的字符串，用于匹配文件路径。可以利用一个或多个 glob 在文件系统中定位文件。<br>
+主要信息：</p>
+<ol>
+<li>src可以传入一个glob,<code>src(&quot;input.js&quot;)</code>。也可以传多个，会按顺序执行。<code>src([&quot;input.js&quot;,&quot;input1.js&quot;])</code>。</li>
+<li>在 glob 中，分隔符永远是 <code>/</code>字符。<code>\\</code> 字符被保留作为转义符使用。</li>
+<li>避免使用 Node 的 path 类方法来创建 glob。</li>
+<li><code>*</code>在一个字符串片段中匹配任意数量的字符，包括零个匹配。对于匹配单级目录下的文件很有用。</li>
+<li><code>**</code>在多个字符串片段中匹配任意数量的字符，包括零个匹配。 对于匹配嵌套目录下的文件很有用。</li>
+<li><code>!</code>取反。跟在目标glob后，一个取反对应一个glob。表述在匹配的glob中排除什么。</li>
+</ol>
+<pre><code>['script/**/*.js', '!scripts/vendor/', 'scripts/vendor/react.js']
+</code></pre>
+<h2 id="创建任务"><a href="https://www.gulpjs.com.cn/docs/getting-started/creating-tasks/">创建任务</a></h2>
+<p>gulp有分公开任务和私有任务。公开任务就是正常的使用方式。私有任务是在gulpfile内部通过<code>series()</code>或 <code>parallel()</code>自己组合的任务。<br>
+<code>series()</code>让任务（task）按顺序执行。<code>parallel()</code>以最大并发来运行的任务。两者可以组合使用。</p>
+<pre><code>const { series, parallel } = require('gulp');
+
+function clean(cb) {
+  // body omitted
+  cb();
+}
+
+function css(cb) {
+  // body omitted
+  cb();
+}
+
+function javascript(cb) {
+  // body omitted
+  cb();
+}
+
+exports.build = series(clean, parallel(css, javascript));
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#gulp">gulp</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
+<li><a href="#%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6gulpfile">入口文件(gulpfile)</a></li>
+<li><a href="#api">api</a><br>
+*
+<ul>
+<li><a href="#src">src</a></li>
+<li><a href="#dest">dest</a></li>
+<li><a href="#watch">watch</a></li>
+</ul>
+</li>
+<li><a href="#globs">globs</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E4%BB%BB%E5%8A%A1">创建任务</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/javascriptsymbol-shi-shi-me/">
+              <h3 class="post-title">
+                [javascript]symbol是什么？
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

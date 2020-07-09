@@ -1,0 +1,451 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[佛系笔记]-mysql命令备忘 | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[佛系笔记]-mysql命令备忘 | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="MYSQL
+简介
+MySQL 是最流行的关系型数据库管理系统，在 WEB 应用方面 MySQL 是最好的 RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一。
+数据库
+结..." />
+    <meta name="keywords" content="佛系笔记" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [佛系笔记]-mysql命令备忘
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-26
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/s_9jbd3Gk/" class="post-tag">
+                  # 佛系笔记
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="mysql">MYSQL</h1>
+<h2 id="简介">简介</h2>
+<p>MySQL 是最流行的关系型数据库管理系统，在 WEB 应用方面 MySQL 是最好的 RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一。</p>
+<h2 id="数据库">数据库</h2>
+<h4 id="结构">结构</h4>
+<p>数据库有一个简单层级关系即，数据库-数据表-数据（行）</p>
+<h4 id="数据类型">数据类型</h4>
+<h6 id="数值类型">数值类型</h6>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:right">大小</th>
+<th style="text-align:center">范围（有符号）</th>
+<th style="text-align:center">范围（无符号）</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TINYINT</td>
+<td style="text-align:right">1 byte</td>
+<td style="text-align:center">(-128，127)</td>
+<td style="text-align:center">(0，255)</td>
+<td style="text-align:center">小整数值</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td style="text-align:right">2 bytes</td>
+<td style="text-align:center">(-32 768，32 767)</td>
+<td style="text-align:center">(0，65 535)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td style="text-align:right">3 bytes</td>
+<td style="text-align:center">(-8 388 608，8 388 607)</td>
+<td style="text-align:center">(0，16 777 215)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td>INT或INTEGER</td>
+<td style="text-align:right">4 bytes</td>
+<td style="text-align:center">(-2 147 483 648，2 147 483 647)</td>
+<td style="text-align:center">(0，4 294 967 295)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:right">8 bytes</td>
+<td style="text-align:center">(-9,223,372,036,854,775,808，9 223 372 036 854 775 807)</td>
+<td style="text-align:center">(0，18 446 744 073 709 551 615)	极大</td>
+<td style="text-align:center">整数值</td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td style="text-align:right">4 bytes</td>
+<td style="text-align:center">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0，(1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td style="text-align:center">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td style="text-align:center">单精度浮点数值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:right">8 bytes</td>
+<td style="text-align:center">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">双精度</td>
+</tr>
+<tr>
+<td>浮点数值</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>DECIMAL</td>
+<td style="text-align:right">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
+<td style="text-align:center">依赖于M和D的值</td>
+<td style="text-align:center">依赖于M和D的值</td>
+<td style="text-align:center">小数值</td>
+</tr>
+</tbody>
+</table>
+<h6 id="日期和时间类型">日期和时间类型</h6>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:right">大小</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DATE</td>
+<td style="text-align:right">3</td>
+<td style="text-align:center">1000-01-01/9999-12-31</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td style="text-align:right">3</td>
+<td style="text-align:center">'-838:59:59'/'838:59:59'</td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td style="text-align:right">1</td>
+<td style="text-align:center">1901/2155</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td style="text-align:right">8</td>
+<td style="text-align:center">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td style="text-align:right">4</td>
+<td style="text-align:center">1970-01-01 00:00:00/2038 结束时间是第 2147483647 秒，北京时间 2038-1-19 11:14:07，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
+</tr>
+</tbody>
+</table>
+<h6 id="字符串类型">字符串类型</h6>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:right">大小</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CHAR</td>
+<td style="text-align:right">0-255 bytes</td>
+<td style="text-align:center">定长字符串</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td style="text-align:right">0-65535 bytes</td>
+<td style="text-align:center">变长字符串</td>
+</tr>
+<tr>
+<td>TINYBLOB</td>
+<td style="text-align:right">0-255 bytes</td>
+<td style="text-align:center">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td style="text-align:right">0-255 bytes</td>
+<td style="text-align:center">短文本字符串</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td style="text-align:right">0-65 535 bytes</td>
+<td style="text-align:center">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td style="text-align:right">0-65 535 bytes</td>
+<td style="text-align:center">长文本数据</td>
+</tr>
+<tr>
+<td>MEDIUMBLOB</td>
+<td style="text-align:right">0-16 777 215 bytes</td>
+<td style="text-align:center">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td style="text-align:right">0-16 777 215 bytes</td>
+<td style="text-align:center">中等长度文本数据</td>
+</tr>
+<tr>
+<td>LONGBLOB</td>
+<td style="text-align:right">0-4 294 967 295 bytes</td>
+<td style="text-align:center">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td style="text-align:right">0-4 294 967 295 bytes</td>
+<td style="text-align:center">极大文本数据</td>
+</tr>
+</tbody>
+</table>
+<h2 id="语法">语法</h2>
+<h4 id="create">CREATE</h4>
+<p>CREATE 用于创建数据库或数据表</p>
+<pre><code>CREATE DATABASE &lt;数据库名&gt;;
+CREATE TABLE &lt;数据表名&gt; (column1_name column1_type,column2_name,column2_type,...);
+</code></pre>
+<h4 id="use">USE</h4>
+<p>USE 用于选择数据库</p>
+<pre><code>USE &lt;数据库名&gt;;
+</code></pre>
+<h4 id="drop">DROP</h4>
+<p>DROP 用于删除数据库或数据表</p>
+<pre><code>DROP database &lt;数据库名&gt;;
+DROP TABLE &lt;数据表名&gt; ;
+</code></pre>
+<h4 id="delete">DELETE</h4>
+<p>DELETE  用于删除数据表中的数据</p>
+<pre><code>DELETE FROM table_name [WHERE Clause];
+没有where则全部删除
+</code></pre>
+<h4 id="insert-into">INSERT INTO</h4>
+<p>INSERT INTO 用于向数据表插入数据</p>
+<pre><code> INSERT INTO table_name ( field1, field2,...fieldN )
+                       VALUES
+                       ( value1, value2,...valueN );
+</code></pre>
+<h4 id="select">SELECT</h4>
+<p>SELECT 语句用于从数据库中查询数据</p>
+<pre><code>SELECT column_name,column_name FROM table_name;
+</code></pre>
+<h4 id="update">UPDATE</h4>
+<p>UPDATE  语句用于修改或更新 MySQL 中的数据</p>
+<pre><code>UPDATE table_name SET field1=new-value1, field2=new-value2;
+</code></pre>
+<h2 id="子句">子句</h2>
+<p>子句是语法里的一部分，它自身不能作为一个完整的语法，必须与其他的一起使用。可以作为条件使用。</p>
+<h4 id="where">WHERE</h4>
+<p>WHERE 子句用于有条件地从表中选取数据</p>
+<pre><code>SELECT * from runoob_tbl WHERE runoob_author='菜鸟教程';
+</code></pre>
+<h4 id="link">LINK</h4>
+<p>LINK 子句用于进一步描述条件，可以替<code>=</code>,LIKE 通常与 % 一同使用，类似于一个元字符的搜索。 %字符来表示任意字符.</p>
+<pre><code>SELECT field1, field2,...fieldN 
+FROM table_name
+WHERE field1 LIKE condition1 [AND [OR]] filed2 = 'somevalue';
+</code></pre>
+<h4 id="order-by">ORDER BY</h4>
+<p>ORDER BY 子句用于排序,可以使用 ASC 或 DESC 关键字来设置查询结果是按升序或降序排列。 默认情况下，它是按升序排列。</p>
+<pre><code>SELECT field1, field2,...fieldN FROM table_name1, table_name2...
+ORDER BY field1 [ASC [DESC][默认 ASC]], [field2...] [ASC [DESC][默认 ASC]];
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#mysql">MYSQL</a>
+<ul>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a><br>
+*
+<ul>
+<li><a href="#%E7%BB%93%E6%9E%84">结构</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">数据类型</a><br>
+*
+<ul>
+<li><a href="#%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B">数值类型</a></li>
+<li><a href="#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B">日期和时间类型</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B">字符串类型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%AF%AD%E6%B3%95">语法</a><br>
+*
+<ul>
+<li><a href="#create">CREATE</a></li>
+<li><a href="#use">USE</a></li>
+<li><a href="#drop">DROP</a></li>
+<li><a href="#delete">DELETE</a></li>
+<li><a href="#insert-into">INSERT INTO</a></li>
+<li><a href="#select">SELECT</a></li>
+<li><a href="#update">UPDATE</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AD%90%E5%8F%A5">子句</a><br>
+*
+<ul>
+<li><a href="#where">WHERE</a></li>
+<li><a href="#link">LINK</a></li>
+<li><a href="#order-by">ORDER BY</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/docker-kuai-su-ru-men-2-dockerfile/">
+              <h3 class="post-title">
+                Docker快速入门(2)--Dockerfile
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

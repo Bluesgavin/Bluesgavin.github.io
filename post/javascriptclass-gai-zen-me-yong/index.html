@@ -1,0 +1,298 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[Javascript]Class该怎么用？ | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[Javascript]Class该怎么用？ | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="class
+类这个东西原来只在我练习面试题和学习canvas的时候做一些小游戏时才会用到。直到一天要去读到同事写的代码，发现他大量地用到类。后来又在自学java的时候，终于明白。为什么在es6 Class终于要被提上进程了。
+更好地组织代码..." />
+    <meta name="keywords" content="javasricpt" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [Javascript]Class该怎么用？
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-07-09
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/2UOyrMpQK/" class="post-tag">
+                  # javasricpt
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="class">class</h1>
+<p>类这个东西原来只在我练习面试题和学习canvas的时候做一些小游戏时才会用到。直到一天要去读到同事写的代码，发现他大量地用到类。后来又在自学java的时候，终于明白。为什么在es6 Class终于要被提上进程了。</p>
+<h2 id="更好地组织代码">更好地组织代码</h2>
+<p>像我们在用Vue写页面的时候，我们会把数据存在data中，然后当中存放一些对象数据来代表我们页面中的组件内容。组件来操作这些数据。但当我们的页面内容越来越丰富之后，data会变得很庞大。当然为了操作这些data我们还需要有对应的methods来操作。慢慢的这个vue文件就会变得越来越难掌握。<br>
+这时候假如用class的思路想一下，一个组件或者一个局部的页面块。我们用class来处理，数据和操作方法存在实例本身。这样不仅减少了代码量。整体项目看起来，把握项目内容的难度也会减少。（其实就是vue文件与Vue的关系一样）</p>
+<h2 id="es6-class">ES6 class</h2>
+<p>class这个其实是语法糖，在我们学习构造函数的时候，我们知道想要做出一样效果，我们需要</p>
+<pre><code>function People(name,age){
+ this.name = name;
+ this.age = age; 
+}
+// 假如需要添加函数还要
+People.prototype.say=function（）{
+    console.log(&quot;hello)
+}
+</code></pre>
+<p>而class为我们提过了一个很简单的写法</p>
+<pre><code>    class People{
+        constructor(name,age){
+            this.name = name;
+            this.age = age;
+        }
+        say(){
+            console.log(&quot;hello)
+        }
+    }
+    // 创造实例
+    let a = new People(&quot;tom&quot;,23);
+</code></pre>
+<p>注意：class没有声明提升，声明必须写在前。而构造函数有声明提示。</p>
+<h2 id="constructor">constructor</h2>
+<p>constructor用来创建和初始化一个由class创建的对象。一个类只能拥有一个名为 “constructor”的特殊方法。他用来接受class在被创建的时候传入的参。并且他本身负责构建属于他的数据结构。</p>
+<h2 id="static">static</h2>
+<p>static是class的静态方法。写法是：</p>
+<pre><code> class Animal { 
+  speak() {
+    return this;
+  }
+  // 与其他方法同层
+  static eat() {
+    return this;
+  }
+}
+</code></pre>
+<p>class里的一般方法，一般用于调用或者修改操作实例里的数据。而静态方法一般与数据关系不大，是一个类的通用方法。调用方法也是直接在类中调用。</p>
+<pre><code>    //一般方法
+    let obj = new Animal();
+    obj.speak(); // Animal {}
+    let speak = obj.speak;
+    speak(); // undefined
+
+    //静态方法
+    Animal.eat() // class Animal
+    let eat = Animal.eat;
+    eat(); // undefined
+</code></pre>
+<h2 id="extends">extends</h2>
+<p>class可以继承class,就是所谓的大类小类。</p>
+<pre><code>// 先创建动物类
+class Animal { 
+  constructor(name) {
+    this.name = name;
+  }
+  
+  speak() {
+    console.log(this.name + ' makes a noise.');
+  }
+}
+
+// 再创建狗类，它继承动物类
+class Dog extends Animal {
+    constructor(){
+        super();
+    }
+  speak() {
+    console.log(this.name + ' barks.');
+  }
+}
+
+var d = new Dog('Mitzie');
+d.speak();// 'Mitzie barks.'
+</code></pre>
+<h3 id="super">super</h3>
+<p>首先，ES6 要求，子类的构造函数必须执行一次super函数。而super有两种用法。1，做函数。2，做对象。<br>
+1.super虽然代表了父类A的构造函数，但是返回的是子类B的实例，即super内部的this指的是B，因此super()在这里相当于A.prototype.constructor.call(this)。</p>
+<pre><code>class A {}
+
+class B extends A {
+  constructor() {
+    super();
+  }
+}
+</code></pre>
+<p>2.做对象。做对象时它指向父类的构造函数，可以调用它的静态方法，方法等。</p>
+<pre><code>class Human {
+  constructor() {}
+  static ping() {
+    return 'ping';
+  }
+}
+
+class Computer extends Human {
+  constructor() {}
+  static pingpong() {
+    return super.ping() + ' pong';
+  }
+}
+Computer.pingpong(); // 'ping pong'
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#class">class</a>
+<ul>
+<li><a href="#%E6%9B%B4%E5%A5%BD%E5%9C%B0%E7%BB%84%E7%BB%87%E4%BB%A3%E7%A0%81">更好地组织代码</a></li>
+<li><a href="#es6-class">ES6 class</a></li>
+<li><a href="#constructor">constructor</a></li>
+<li><a href="#static">static</a></li>
+<li><a href="#extends">extends</a>
+<ul>
+<li><a href="#super">super</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/vuevue-zhi-shi-lou-dong-e-bu/">
+              <h3 class="post-title">
+                [VUE]vue知识漏洞恶补
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,479 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[python]一起学python（1） | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[python]一起学python（1） | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="python
+跟很多前端工作者一样，我也常常打听。作为前端，在要懂js的前提下，还要可以学什么其他语言来增加自己的竞争力。
+我看到最多的是node，很多人说前端真正的学好node。已经可以胜任很多工作了。假如想学后端java是需求最大的。
+..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [python]一起学python（1）
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-07-12
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="python">python</h1>
+<p>跟很多前端工作者一样，我也常常打听。作为前端，在要懂js的前提下，还要可以学什么其他语言来增加自己的竞争力。<br>
+我看到最多的是node，很多人说前端真正的学好node。已经可以胜任很多工作了。假如想学后端java是需求最大的。<br>
+不过目前来说java的学习成本很高，相对python是一门很好入门的语言，最近也是很火。<br>
+所以我想用一小段时间，快速了解一下python。(本文用的是python3.x)</p>
+<h2 id="数据类型">数据类型</h2>
+<p>先看数据类型（看我们可以pyhton中写什么。）</p>
+<ol>
+<li>整数</li>
+<li>浮点数</li>
+<li>字符串</li>
+<li>布尔值</li>
+<li>空值<br>
+乍一看基本类型和js的差不多。<br>
+在学习过程中我们会多次用到print();类似于js的console，就是打印输出。</li>
+</ol>
+<h4 id="声明">声明</h4>
+<p>python的声明没有关键字，声明和赋值写法一样。</p>
+<pre><code>counter = 100 # 整型变量
+miles = 1000.0 # 浮点型变量
+name = &quot;John&quot; # 字符串变量
+flag = True # 布尔类型变量
+
+print(counter) //100
+print(miles)   //1000.0
+print(name)    //&quot;John&quot;
+print(flag)    //True
+</code></pre>
+<p>这种常用的是动态语言，与之相反的是静态语言。在声明时规定变量的类型。</p>
+<pre><code>int a = 123; // a是整数类型变量
+a = &quot;ABC&quot;; // 会报错，不能把字符串赋给整型变量
+</code></pre>
+<h4 id="格式化">格式化</h4>
+<p>相当于占位符，用%符号调用。</p>
+<pre><code>`'Hello, %s' % 'world'
+// 'Hello, world'
+</code></pre>
+<p>各种占位符</p>
+<ol>
+<li>%d  整数</li>
+<li>%f  浮点数</li>
+<li>%s  字符串</li>
+<li>%x  十六进制整数</li>
+</ol>
+<p>其中当用到%时，需要转义一下。%%</p>
+<pre><code>&gt;&gt;&gt; 'growth rate: %d %%' % 7
+'growth rate: 7 %'
+</code></pre>
+<h2 id="list">list</h2>
+<p>list很像js中的数组。这里叫列表。其实也差不多，就是一个有序的存放数据的表。</p>
+<pre><code>&gt;&gt;&gt; classmates = ['Michael', 'Bob', 'Tracy']
+print(classmates)
+//['Michael', 'Bob', 'Tracy']
+</code></pre>
+<p>用len()可以查看list的长度(同时也能看字符的长度)</p>
+<pre><code>classmates = ['Michael', 'Bob', 'Tracy']
+name = 'Michael'
+print(len(classmates)) //3
+print(len(name)) //7
+</code></pre>
+<p>因为是有序的，list中的数据都有自己的索引。索引从0开始。超出后会报错。</p>
+<pre><code>&gt;&gt;&gt; classmates[0]
+'Michael'
+&gt;&gt;&gt; classmates[1]
+'Bob'
+&gt;&gt;&gt; classmates[2]
+'Tracy'
+&gt;&gt;&gt; classmates[3]
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+IndexError: list index out of range
+</code></pre>
+<p>！！比js方便的是list可以调用索引-1直接访问最后一位。</p>
+<pre><code>&gt;&gt;&gt; classmates[-1]
+'Tracy'
+&gt;&gt;&gt; classmates[-2]
+'Bob'
+&gt;&gt;&gt; classmates[-3]
+'Michael'
+&gt;&gt;&gt; classmates[-4]
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+IndexError: list index out of range
+</code></pre>
+<h3 id="list方法">list方法</h3>
+<p>append在list最后添加数据</p>
+<pre><code>&gt;&gt;&gt; classmates.append('Adam')
+&gt;&gt;&gt; classmates
+['Michael', 'Bob', 'Tracy', 'Adam']
+</code></pre>
+<p>insert可以在list指定位置插入数据</p>
+<pre><code>&gt;&gt;&gt; classmates.insert(1, 'Jack')
+&gt;&gt;&gt; classmates
+['Michael', 'Jack', 'Bob', 'Tracy', 'Adam']
+</code></pre>
+<p>pop直接使用删除list最后一位。带上索引删除指定位置。</p>
+<pre><code>&gt;&gt;&gt; classmates.pop()
+'Adam'
+&gt;&gt;&gt; classmates
+['Michael', 'Jack', 'Bob', 'Tracy']
+
+&gt;&gt;&gt; classmates.pop(1)
+'Jack'
+&gt;&gt;&gt; classmates
+['Michael', 'Bob', 'Tracy']
+</code></pre>
+<h3 id="tuple">tuple</h3>
+<p>tuple是类似list的，可是一旦定义了就不能修改。定义写法用的是()。</p>
+<pre><code>&gt;&gt;&gt; classmates = ('Michael', 'Bob', 'Tracy')
+&gt;&gt;&gt; classmates
+('Michael', 'Bob', 'Adam')
+</code></pre>
+<p>一旦尝试通过classmates[1]=&quot;tom&quot;。修改tuple，会报错。tuple可以保证一些不需要修改的数据被无意修改。</p>
+<h2 id="dict">dict</h2>
+<p>dict类似于js的对象。也就是key-value对的形式存数据。可以用名字快速地找到数据内容。<br>
+写法</p>
+<pre><code>&gt;&gt;&gt; d = {'Michael': 95, 'Bob': 75, 'Tracy': 85}
+# js的是用. python用[]
+&gt;&gt;&gt; d['Michael']
+95
+</code></pre>
+<p>当数据多了之后list的查找速度会变慢，而dict几乎不受影响。可是dict会占用大量空间，是用空间来换取时间的一种方法。<br>
+如果key不存在，dict就会报错：</p>
+<pre><code>&gt;&gt;&gt; d['Thomas']
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+KeyError: 'Thomas'
+</code></pre>
+<p>这时可以用in或者get()来判断该key是否存在。</p>
+<pre><code># in
+&gt;&gt;&gt; 'Thomas' in d
+False
+# get()
+&gt;&gt;&gt; d.get('Thomas')
+&gt;&gt;&gt; d.get('Thomas', -1)
+-1
+</code></pre>
+<p>用pop()可以删除dict中一项包括key和value</p>
+<pre><code>&gt;&gt;&gt; d.pop('Bob')
+75
+&gt;&gt;&gt; d
+{'Michael': 95, 'Tracy': 85}
+</code></pre>
+<h4 id="set">set</h4>
+<p>set与dict类型相似，可是set只存key。可以用add(),remove()来增减。</p>
+<pre><code># 通过list来传入
+&gt;&gt;&gt; s = set([1, 2, 3])
+&gt;&gt;&gt; s
+{1, 2, 3}
+
+# add()
+&gt;&gt;&gt; s.add(4)
+&gt;&gt;&gt; s
+{1, 2, 3, 4}
+&gt;&gt;&gt; s.add(4)
+&gt;&gt;&gt; s
+{1, 2, 3, 4}
+
+# remove()
+&gt;&gt;&gt; s.remove(4)
+&gt;&gt;&gt; s
+{1, 2, 3}
+</code></pre>
+<h2 id="if判断">if判断</h2>
+<p>来到了逻辑判断了，if。条件判断。首先于js不同python的分块不用{}而是用缩进和:（这个要注意）</p>
+<pre><code>age = 20
+if age &gt;= 18:
+    print('your age is', age)
+    print('adult')
+
+# 加入else
+age = 3
+if age &gt;= 18:
+    # 符合条件走这里
+    print('your age is', age)
+    print('adult')
+else:
+    # 不符合条件走这里
+    print('your age is', age)
+    print('teenager')
+</code></pre>
+<p>对于else if，python有它的专用缩写</p>
+<pre><code>age = 3
+if age &gt;= 18:
+    print('adult')
+elif age &gt;= 6:
+    print('teenager')
+else:
+    print('kid')
+</code></pre>
+<p>变量判断</p>
+<pre><code>if x:
+    print('True')
+</code></pre>
+<p>只要x是非零数值、非空字符串、非空list等，就判断为True，否则为False。</p>
+<h2 id="input">input</h2>
+<p>终于出现了第一个交互功能--input。用input()程序会让用户输入文本并存放在对应位置，继续完成代码。</p>
+<pre><code>birth = int(input('birth: '))
+# input()参入的字符，为输入时的提醒文本
+# 输入的值会被定义为birth的值，参与if判断。
+if birth &lt; 2000:
+    print('00前')
+else:
+    print('00后')
+</code></pre>
+<p>注意input输入的文本类型是字符，字符不能直接用&lt;，&gt;对比。必须要先转成数字。用int()可以把字符转成整数。</p>
+<h2 id="循环">循环</h2>
+<h3 id="white">white</h3>
+<p>只要满足white的条件，即为true。就会一直跑循环里的代码。</p>
+<pre><code>sum = 0
+n = 99
+while n &gt; 0:
+    sum = sum + n
+    n = n - 2
+print(sum)
+</code></pre>
+<p>在循环内部变量n不断自减，直到变为-1时，不再满足while条件，循环退出。</p>
+<h4 id="循环里的方法">循环里的方法</h4>
+<p>break<br>
+break可以提前结束循环。</p>
+<pre><code>n = 1
+while n &lt;= 100:
+    if n &gt; 10: # 当n = 11时，条件满足，执行break语句
+        break # break语句会结束当前循环
+    print(n)
+    n = n + 1
+print('END')
+</code></pre>
+<p>continue<br>
+continue是跳过某次的代码直接进入下一次循环。</p>
+<pre><code>n = 0
+while n &lt; 10:
+    n = n + 1
+    if n % 2 == 0: # 如果n是偶数，执行continue语句
+        continue # continue语句会直接继续下一轮循环，后续的print()语句不会执行
+    print(n)
+</code></pre>
+<h3 id="forin">for...in..</h3>
+<p>for in 可以枚举list或tuple里的数据.</p>
+<pre><code>names = ['Michael', 'Bob', 'Tracy']
+for name in names:
+    print(name)
+#顺序输出'Michael', 'Bob', 'Tracy'
+</code></pre>
+<p>某些场景，python是有提供基本方法的，不需要循环生成。list()可以让有序数据转换为list。range()可以生成一个整数序列</p>
+<pre><code>&gt;&gt;&gt; list(range(5))
+[0, 1, 2, 3, 4]
+</code></pre>
+<h2 id="场景">场景</h2>
+<p>我们可以利用目前了解到的python语法做一款弱智的游戏。猜数字</p>
+<pre><code>import random
+# 用一个dict存放需要的数据
+config = {'maxNum': 100,'minNum': 0,'count':0}
+# 用模块生成随机数，模块是python中很重要的一环
+target = random.randint(config['minNum'],config['maxNum'])
+# 让循环持续发生
+while  True:
+    config['count'] += 1
+    num = int(input('请输入 %d 至 %d 的整数：' % (config['minNum'],config['maxNum'])))
+    if num == target:
+        # 当猜对时break跳出循环
+        break
+    elif num &lt; target:
+        config['minNum'] = num
+        print('不对,猜小了')
+    elif num &gt; target:
+        config['maxNum'] = num
+        print('不对,猜大了')
+print('猜对了答案是 %d。一共猜了 %d 次' % (target,config['count']))
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#python">python</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">数据类型</a><br>
+*
+<ul>
+<li><a href="#%E5%A3%B0%E6%98%8E">声明</a></li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E5%8C%96">格式化</a></li>
+</ul>
+</li>
+<li><a href="#list">list</a>
+<ul>
+<li><a href="#list%E6%96%B9%E6%B3%95">list方法</a></li>
+<li><a href="#tuple">tuple</a></li>
+</ul>
+</li>
+<li><a href="#dict">dict</a><br>
+*
+<ul>
+<li><a href="#set">set</a></li>
+</ul>
+</li>
+<li><a href="#if%E5%88%A4%E6%96%AD">if判断</a></li>
+<li><a href="#input">input</a></li>
+<li><a href="#%E5%BE%AA%E7%8E%AF">循环</a>
+<ul>
+<li><a href="#white">white</a>
+<ul>
+<li><a href="#%E5%BE%AA%E7%8E%AF%E9%87%8C%E7%9A%84%E6%96%B9%E6%B3%95">循环里的方法</a></li>
+</ul>
+</li>
+<li><a href="#forin">for...in..</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9C%BA%E6%99%AF">场景</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/fo-xi-bi-ji-chu-lan-webpack/">
+              <h3 class="post-title">
+                [佛系笔记]初览webpack
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

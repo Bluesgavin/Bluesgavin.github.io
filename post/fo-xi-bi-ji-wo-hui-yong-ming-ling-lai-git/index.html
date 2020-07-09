@@ -1,0 +1,296 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[佛系笔记]-我会用命令来git | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[佛系笔记]-我会用命令来git | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="
+
+佛系笔记系列是不求深究，只求会用的粗暴总结。
+
+
+GIT
+今天请大家来和我一起背命令~~
+创建
+在项目的目录下执行git init即可将项目变为git项目。目录下会创建.git文件夹。用来管理项目。
+添加文件至仓库
+提交文件要执行两个动..." />
+    <meta name="keywords" content="佛系笔记" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [佛系笔记]-我会用命令来git
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-11-05
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/s_9jbd3Gk/" class="post-tag">
+                  # 佛系笔记
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <blockquote>
+<ul>
+<li>佛系笔记系列是不求深究，只求会用的粗暴总结。</li>
+</ul>
+</blockquote>
+<h1 id="git">GIT</h1>
+<p>今天请大家来和我一起背命令~~</p>
+<h2 id="创建">创建</h2>
+<p>在项目的目录下执行<code>git init</code>即可将项目变为git项目。目录下会创建.git文件夹。用来管理项目。</p>
+<h2 id="添加文件至仓库">添加文件至仓库</h2>
+<p>提交文件要执行两个动作：</p>
+<h4 id="git-add">git add</h4>
+<p>修改了的文件先用<code>git add &lt;文件名&gt;</code>,把文件添加到仓库。</p>
+<h4 id="git-commit">git commit</h4>
+<p>添加到仓库之后，<code>git commit &lt;文件名&gt;</code>把文件提交到仓库。注意在使用commit时，<code>git commit &lt;文件名&gt; -m &quot;xxx&quot;</code>-m后面输入的是本次提交的说明，可以输入任意内容，当然最好是有意义的，这样你就能从历史记录里方便地找到改动记录。执行之后会返回显示多少文件改变了。</p>
+<h2 id="查看状态">查看状态</h2>
+<h4 id="git-status">git status</h4>
+<p><code>git status</code>命令可以让我们知道目录中文件与仓库中的差别。可以知道什么被修改过了，但还没有准备提交的修改。</p>
+<h4 id="git-diff">git diff</h4>
+<p><code>git diff</code>可以看到被修改的文件，具体被修改了哪一行。</p>
+<h2 id="查看日志">查看日志</h2>
+<h4 id="git-log">git log</h4>
+<p><code>git log</code>可以看到三次提交记录，和对应的版本号。加上--pretty=oneline参数可以让结果更简约。</p>
+<h4 id="git-reflog">git reflog</h4>
+<p><code>git reflog</code>记录了你的每一次命令，包括reset的动作。</p>
+<h2 id="指针">指针</h2>
+<p>如果把git的厉害记录看成是一个钟表，我们现在所在的位置就是指针指向的位置。git中的指针是HEAD。用HEAD表示当前版本，也就是最新的提交1094adb...，上一个版本就是HEAD<sup>，上上一个版本就是HEAD</sup><sup>，当然往上100个版本写100个</sup>比较容易数不过来，所以写成HEAD~100。</p>
+<h4 id="git-reset">git reset</h4>
+<p>git给了我们时光倒流的机会。我们可以改名git的HEAD的指向。用<code>git reset</code>可以倒退指针，如回到上一个版本。</p>
+<pre><code> git reset --hard HEAD^
+</code></pre>
+<h2 id="远程仓库">远程仓库</h2>
+<p>我们电脑本地的目录只存在本地，通过远程仓库（github,gitlab等）可以实现多人（多设备）之间协调修改项目。</p>
+<h4 id="git-remote">git remote</h4>
+<p>可以用<code>git remote</code>把本地项目关联到远程仓库中。</p>
+<pre><code>    git remote add origin &lt;地址&gt;
+</code></pre>
+<h4 id="git-push">git push</h4>
+<p>用<code>git push</code>命令，可以把当前分支master推送到远程。对于新建的项目，远程仓库是空的，在第一次push 的时候如果带上<code>-u</code>。不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
+<h4 id="git-clone">git clone</h4>
+<p>如果想要从远程仓库中克隆项目到自己本地中，可以用<code>git clone &lt;地址&gt;</code>,即可。</p>
+<h2 id="分支">分支</h2>
+<p>如果把git的记录看成时间线，分支就是从一个点开始分出的平行宇宙。各个分支之间互不影响。在未来的某一点可以让分支合并。<br>
+在git中主分支默认叫做<code>master</code>。</p>
+<h4 id="git-branch">git branch</h4>
+<p><code>git branch &lt;分支名&gt;</code>，创建新分支。<br>
+<code>git branch</code> 会显示所有分支<br>
+<code>git branch -d dev</code> 会删除指定分支</p>
+<h4 id="git-checkout">git checkout</h4>
+<p><code>git checkout</code>用作创建或者切换分支。</p>
+<pre><code>    git checkout -b dev
+</code></pre>
+<p>带上<code>-b</code>表示创建并切换.<br>
+*另外<code>git checkout -- &lt;文件名&gt;</code>还可以撤消文件的修改，至当前仓库版本的内容。</p>
+<h4 id="git-switch">git switch</h4>
+<pre><code> git switch &lt;分支名&gt;
+</code></pre>
+<p>用switch更加严谨，也是新版本推荐的。加上<code>-c</code>，创建和切换</p>
+<h4 id="git-merge">git merge</h4>
+<p>git merge命令用于合并指定分支到当前分支</p>
+<h2 id="总结">总结</h2>
+<p>现在其实有很多git的可视化工具，很多也做得很好。我们为什么还要用命令来玩git呢？第一，可以装逼。第二，假如我们在开发一个线上正在用的项目。如果通过git来给线上更新，可以省去不少麻烦，出了问题还可以reset一下。毕竟服务器一般没有ui。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#git">GIT</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA">创建</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6%E8%87%B3%E4%BB%93%E5%BA%93">添加文件至仓库</a><br>
+*
+<ul>
+<li><a href="#git-add">git add</a></li>
+<li><a href="#git-commit">git commit</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E7%8A%B6%E6%80%81">查看状态</a><br>
+*
+<ul>
+<li><a href="#git-status">git status</a></li>
+<li><a href="#git-diff">git diff</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97">查看日志</a><br>
+*
+<ul>
+<li><a href="#git-log">git log</a></li>
+<li><a href="#git-reflog">git reflog</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8C%87%E9%92%88">指针</a><br>
+*
+<ul>
+<li><a href="#git-reset">git reset</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93">远程仓库</a><br>
+*
+<ul>
+<li><a href="#git-remote">git remote</a></li>
+<li><a href="#git-push">git push</a></li>
+<li><a href="#git-clone">git clone</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%86%E6%94%AF">分支</a><br>
+*
+<ul>
+<li><a href="#git-branch">git branch</a></li>
+<li><a href="#git-checkout">git checkout</a></li>
+<li><a href="#git-switch">git switch</a></li>
+<li><a href="#git-merge">git merge</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/fo-xi-bi-ji-gulp-kuai-su-shang-shou/">
+              <h3 class="post-title">
+                [佛系笔记]gulp快速上手
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

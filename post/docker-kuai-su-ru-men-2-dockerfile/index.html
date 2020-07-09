@@ -1,0 +1,310 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Docker快速入门(2)--Dockerfile | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Docker快速入门(2)--Dockerfile | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Docker快速入门(2)Dockerfile
+简述
+在之前我们用的都是从仓库下载下来的镜像，那如果我们需要创建自己定制的镜像，就可以使用Dockerfile。Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Docker快速入门(2)--Dockerfile
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-28
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="docker快速入门2dockerfile">Docker快速入门(2)Dockerfile</h1>
+<h2 id="简述">简述</h2>
+<p>在之前我们用的都是从仓库下载下来的镜像，那如果我们需要创建自己定制的镜像，就可以使用Dockerfile。Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。</p>
+<h2 id="概览">概览</h2>
+<p>Dockerfile实际上就是以一个已经有了的或者线上的镜像为基础,通过Dockerfile文件执行一系列的动作后生成一个新的镜像。所以如果把这个Dockerfile给别人执行 也可以得到和你一样的镜像。</p>
+<h2 id="使用">使用</h2>
+<p>假如现在希望把一个前端项目打包成一个镜像。我们可以在该项目目录下创建Dockerfile文件。并编写内容：</p>
+<pre><code>FROM node
+RUN mkdir /app
+COPY . /app/
+WORKDIR /app/
+RUN npm install --registry=https://registry.npm.taobao.org
+EXPOSE 7003
+ENTRYPOINT [&quot;npm&quot;,&quot;run&quot;,&quot;serve&quot;]
+</code></pre>
+<p>然后在该目录下执行</p>
+<pre><code>docker build -t 【新镜像名称】 .
+</code></pre>
+<p><code>docker build</code>命令最后的<code>.</code>是指，执行这命令的时候上下文就是当前目录。<br>
+现在对上方命令作一下简单说明。</p>
+<ol>
+<li>先用node镜像为基础，本地没有的话会自动下载。</li>
+<li>在node镜像创建的容器中执行<code>mkdir /app</code>创建app文件夹。</li>
+<li>把当前本机目录下的文件拷贝到容器的app文件夹中</li>
+<li>把Dockerfile接下来的工作目录设置为容器的app文件夹</li>
+<li>执行npm install（当然这里是因为app中有刚刚第三步中从本机拷贝过来的package.json文件）</li>
+<li>说明一下这个项目会用到7003端口</li>
+<li>定义这个新镜像在运行时会自动执行<code>npm run serve</code></li>
+</ol>
+<p>执行完之后查看本地镜像是否已经有刚刚创建的。</p>
+<pre><code>docker images
+// 如果需要运行新的镜像只要想普通镜像一样运行即可。
+docker run 【镜像】
+</code></pre>
+<h2 id="命令说明">命令说明</h2>
+<h3 id="from">FROM</h3>
+<p>FROM是Dockerfile的第一行用到的，他的作用是告诉docekrFile这个新镜像的基础镜像是什么。如果执行Dockerfile时，本地没有这个镜像就会先下载。</p>
+<h3 id="run">RUN</h3>
+<p>用于执行后面跟着的命令行命令。</p>
+<pre><code>//有以下俩种格式：
+RUN &lt;命令行命令&gt;
+RUN [&quot;可执行文件&quot;, &quot;参数1&quot;, &quot;参数2&quot;]
+</code></pre>
+<p>注意：Dockerfile 的指令每执行一次都会在 docker 上新建一层。所以过多无意义的层，会造成镜像膨胀过大。如果需要执行多行命令，应该用&amp;&amp; 符号连接命令，这样执行后，只会创建 1 层镜像。</p>
+<h3 id="copy">COPY</h3>
+<p>复制指令，从上下文目录中复制文件或者目录到容器里指定路径。</p>
+<pre><code>COPY D:/doc /mydir/
+</code></pre>
+<h3 id="add">ADD</h3>
+<p>ADD 指令和 COPY 的使用格式一致（同样需求下，官方推荐使用 COPY）。功能也类似，不同之处如下：</p>
+<ul>
+<li>ADD 的优点：在执行 &lt;源文件&gt; 为 tar 压缩文件的话，压缩格式为 gzip, bzip2 以及 xz 的情况下，会自动复制并解压到 &lt;目标路径&gt;。</li>
+<li>ADD 的缺点：在不解压的前提下，无法复制 tar 压缩文件。会令镜像构建缓存失效，从而可能会令镜像构建变得比较缓慢。具体是否使用，可以根据是否需要自动解压来决定。</li>
+</ul>
+<h3 id="cmd">CMD</h3>
+<p>类似于 RUN 指令，用于运行程序，但二者运行的时间点不同:</p>
+<ul>
+<li>CMD 在docker run 时运行。</li>
+<li>RUN 是在 docker build。</li>
+</ul>
+<p>作用：为启动的容器指定默认要运行的程序，程序运行结束，容器也就结束。CMD 指令指定的程序可被 docker run 命令行参数中指定要运行的程序所覆盖。</p>
+<p>注意：如果 Dockerfile 中如果存在多个 CMD 指令，仅最后一个生效。</p>
+<p>格式：</p>
+<pre><code>CMD &lt;shell 命令&gt; 
+CMD [&quot;&lt;可执行文件或命令&gt;&quot;,&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...] 
+CMD [&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...]  # 该写法是为 ENTRYPOINT 指令指定的程序提供默认参数
+</code></pre>
+<h3 id="entrypoint">ENTRYPOINT</h3>
+<p>类似于 CMD 指令，但其不会被 docker run 的命令行参数指定的指令所覆盖，而且这些命令行参数会被当作参数送给 ENTRYPOINT 指令指定的程序。</p>
+<p>但是, 如果运行 docker run 时使用了 --entrypoint 选项，此选项的参数可当作要运行的程序覆盖 ENTRYPOINT 指令指定的程序。</p>
+<p>优点：在执行 docker run 的时候可以指定 ENTRYPOINT 运行所需的参数。</p>
+<p>注意：如果 Dockerfile 中如果存在多个 ENTRYPOINT 指令，仅最后一个生效。</p>
+<p>格式：</p>
+<pre><code>ENTRYPOINT [&quot;&lt;executeable&gt;&quot;,&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...]
+</code></pre>
+<h3 id="env">ENV</h3>
+<p>设置环境变量，定义了环境变量，那么在后续的指令中，就可以使用这个环境变量。</p>
+<p>格式：</p>
+<pre><code>ENV &lt;key&gt; &lt;value&gt;
+ENV &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;...
+</code></pre>
+<h3 id="arg">ARG</h3>
+<p>构建参数，与 ENV 作用一至。不过作用域不一样。ARG 设置的环境变量仅对 Dockerfile 内有效，也就是说只有 docker build 的过程中有效，构建好的镜像内不存在此环境变量。</p>
+<p>构建命令 docker build 中可以用 --build-arg &lt;参数名&gt;=&lt;值&gt; 来覆盖。</p>
+<p>格式：</p>
+<pre><code>ARG &lt;参数名&gt;[=&lt;默认值&gt;]
+</code></pre>
+<h3 id="volume">VOLUME</h3>
+<p>定义匿名数据卷。在启动容器时忘记挂载数据卷，会自动挂载到匿名卷。</p>
+<p>作用：</p>
+<p>避免重要的数据，因容器重启而丢失，这是非常致命的。<br>
+避免容器不断变大。<br>
+格式：</p>
+<pre><code>VOLUME [&quot;&lt;路径1&gt;&quot;, &quot;&lt;路径2&gt;&quot;...]
+VOLUME &lt;路径&gt;
+</code></pre>
+<h3 id="expose">EXPOSE</h3>
+<p>仅仅只是声明端口。</p>
+<p>作用：</p>
+<p>帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射。<br>
+在运行时使用随机端口映射时，也就是 docker run -P 时，会自动随机映射 EXPOSE 的端口。<br>
+格式：</p>
+<pre><code>EXPOSE &lt;端口1&gt; [&lt;端口2&gt;...]
+</code></pre>
+<h3 id="workdir">WORKDIR</h3>
+<p>指定工作目录。用 WORKDIR 指定的工作目录，会在构建镜像的每一层中都存在。（WORKDIR 指定的工作目录，必须是提前创建好的）。</p>
+<p>docker build 构建镜像过程中的，每一个 RUN 命令都是新建的一层。只有通过 WORKDIR 创建的目录才会一直存在。<br>
+格式：</p>
+<pre><code>WORKDIR &lt;工作目录路径&gt;
+</code></pre>
+<h3 id="user">USER</h3>
+<p>用于指定执行后续命令的用户和用户组，这边只是切换后续命令执行的用户（用户和用户组必须提前已经存在）。</p>
+<p>格式：</p>
+<pre><code>USER &lt;用户名&gt;[:&lt;用户组&gt;]
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A82dockerfile">Docker快速入门(2)Dockerfile</a>
+<ul>
+<li><a href="#%E7%AE%80%E8%BF%B0">简述</a></li>
+<li><a href="#%E6%A6%82%E8%A7%88">概览</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8">使用</a></li>
+<li><a href="#%E5%91%BD%E4%BB%A4%E8%AF%B4%E6%98%8E">命令说明</a>
+<ul>
+<li><a href="#from">FROM</a></li>
+<li><a href="#run">RUN</a></li>
+<li><a href="#copy">COPY</a></li>
+<li><a href="#add">ADD</a></li>
+<li><a href="#cmd">CMD</a></li>
+<li><a href="#entrypoint">ENTRYPOINT</a></li>
+<li><a href="#env">ENV</a></li>
+<li><a href="#arg">ARG</a></li>
+<li><a href="#volume">VOLUME</a></li>
+<li><a href="#expose">EXPOSE</a></li>
+<li><a href="#workdir">WORKDIR</a></li>
+<li><a href="#user">USER</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/docker-kuai-su-ru-men/">
+              <h3 class="post-title">
+                Docker快速入门
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

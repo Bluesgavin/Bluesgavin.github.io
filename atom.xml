@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Bluesgavin.github.io</id>
     <title>GAVIN&apos;S BLOG</title>
-    <updated>2020-07-08T15:00:22.723Z</updated>
+    <updated>2020-07-09T14:45:08.814Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Bluesgavin.github.io"/>
     <link rel="self" href="https://Bluesgavin.github.io/atom.xml"/>
@@ -60,6 +60,1229 @@ var xxx = require('xxx');
 <pre><code>registry=https://registry.npm.taobao.org
 </code></pre>
 <p>这样只要我们在这个项目下执行<code>npm install</code>都会指向我们规定的地址了。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[佛系笔记]-mysql命令备忘]]></title>
+        <id>https://Bluesgavin.github.io/post/fo-xi-bi-ji-mysql-ming-ling-bei-wang/</id>
+        <link href="https://Bluesgavin.github.io/post/fo-xi-bi-ji-mysql-ming-ling-bei-wang/">
+        </link>
+        <updated>2020-06-26T14:24:46.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="mysql">MYSQL</h1>
+<h2 id="简介">简介</h2>
+<p>MySQL 是最流行的关系型数据库管理系统，在 WEB 应用方面 MySQL 是最好的 RDBMS(Relational Database Management System：关系数据库管理系统)应用软件之一。</p>
+<h2 id="数据库">数据库</h2>
+<h4 id="结构">结构</h4>
+<p>数据库有一个简单层级关系即，数据库-数据表-数据（行）</p>
+<h4 id="数据类型">数据类型</h4>
+<h6 id="数值类型">数值类型</h6>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:right">大小</th>
+<th style="text-align:center">范围（有符号）</th>
+<th style="text-align:center">范围（无符号）</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TINYINT</td>
+<td style="text-align:right">1 byte</td>
+<td style="text-align:center">(-128，127)</td>
+<td style="text-align:center">(0，255)</td>
+<td style="text-align:center">小整数值</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td style="text-align:right">2 bytes</td>
+<td style="text-align:center">(-32 768，32 767)</td>
+<td style="text-align:center">(0，65 535)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td style="text-align:right">3 bytes</td>
+<td style="text-align:center">(-8 388 608，8 388 607)</td>
+<td style="text-align:center">(0，16 777 215)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td>INT或INTEGER</td>
+<td style="text-align:right">4 bytes</td>
+<td style="text-align:center">(-2 147 483 648，2 147 483 647)</td>
+<td style="text-align:center">(0，4 294 967 295)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td style="text-align:right">8 bytes</td>
+<td style="text-align:center">(-9,223,372,036,854,775,808，9 223 372 036 854 775 807)</td>
+<td style="text-align:center">(0，18 446 744 073 709 551 615)	极大</td>
+<td style="text-align:center">整数值</td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td style="text-align:right">4 bytes</td>
+<td style="text-align:center">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0，(1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td style="text-align:center">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td style="text-align:center">单精度浮点数值</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td style="text-align:right">8 bytes</td>
+<td style="text-align:center">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">双精度</td>
+</tr>
+<tr>
+<td>浮点数值</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>DECIMAL</td>
+<td style="text-align:right">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
+<td style="text-align:center">依赖于M和D的值</td>
+<td style="text-align:center">依赖于M和D的值</td>
+<td style="text-align:center">小数值</td>
+</tr>
+</tbody>
+</table>
+<h6 id="日期和时间类型">日期和时间类型</h6>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:right">大小</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DATE</td>
+<td style="text-align:right">3</td>
+<td style="text-align:center">1000-01-01/9999-12-31</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td style="text-align:right">3</td>
+<td style="text-align:center">'-838:59:59'/'838:59:59'</td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td style="text-align:right">1</td>
+<td style="text-align:center">1901/2155</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td style="text-align:right">8</td>
+<td style="text-align:center">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td style="text-align:right">4</td>
+<td style="text-align:center">1970-01-01 00:00:00/2038 结束时间是第 2147483647 秒，北京时间 2038-1-19 11:14:07，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
+</tr>
+</tbody>
+</table>
+<h6 id="字符串类型">字符串类型</h6>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:right">大小</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CHAR</td>
+<td style="text-align:right">0-255 bytes</td>
+<td style="text-align:center">定长字符串</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td style="text-align:right">0-65535 bytes</td>
+<td style="text-align:center">变长字符串</td>
+</tr>
+<tr>
+<td>TINYBLOB</td>
+<td style="text-align:right">0-255 bytes</td>
+<td style="text-align:center">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td style="text-align:right">0-255 bytes</td>
+<td style="text-align:center">短文本字符串</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td style="text-align:right">0-65 535 bytes</td>
+<td style="text-align:center">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td style="text-align:right">0-65 535 bytes</td>
+<td style="text-align:center">长文本数据</td>
+</tr>
+<tr>
+<td>MEDIUMBLOB</td>
+<td style="text-align:right">0-16 777 215 bytes</td>
+<td style="text-align:center">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td style="text-align:right">0-16 777 215 bytes</td>
+<td style="text-align:center">中等长度文本数据</td>
+</tr>
+<tr>
+<td>LONGBLOB</td>
+<td style="text-align:right">0-4 294 967 295 bytes</td>
+<td style="text-align:center">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td style="text-align:right">0-4 294 967 295 bytes</td>
+<td style="text-align:center">极大文本数据</td>
+</tr>
+</tbody>
+</table>
+<h2 id="语法">语法</h2>
+<h4 id="create">CREATE</h4>
+<p>CREATE 用于创建数据库或数据表</p>
+<pre><code>CREATE DATABASE &lt;数据库名&gt;;
+CREATE TABLE &lt;数据表名&gt; (column1_name column1_type,column2_name,column2_type,...);
+</code></pre>
+<h4 id="use">USE</h4>
+<p>USE 用于选择数据库</p>
+<pre><code>USE &lt;数据库名&gt;;
+</code></pre>
+<h4 id="drop">DROP</h4>
+<p>DROP 用于删除数据库或数据表</p>
+<pre><code>DROP database &lt;数据库名&gt;;
+DROP TABLE &lt;数据表名&gt; ;
+</code></pre>
+<h4 id="delete">DELETE</h4>
+<p>DELETE  用于删除数据表中的数据</p>
+<pre><code>DELETE FROM table_name [WHERE Clause];
+没有where则全部删除
+</code></pre>
+<h4 id="insert-into">INSERT INTO</h4>
+<p>INSERT INTO 用于向数据表插入数据</p>
+<pre><code> INSERT INTO table_name ( field1, field2,...fieldN )
+                       VALUES
+                       ( value1, value2,...valueN );
+</code></pre>
+<h4 id="select">SELECT</h4>
+<p>SELECT 语句用于从数据库中查询数据</p>
+<pre><code>SELECT column_name,column_name FROM table_name;
+</code></pre>
+<h4 id="update">UPDATE</h4>
+<p>UPDATE  语句用于修改或更新 MySQL 中的数据</p>
+<pre><code>UPDATE table_name SET field1=new-value1, field2=new-value2;
+</code></pre>
+<h2 id="子句">子句</h2>
+<p>子句是语法里的一部分，它自身不能作为一个完整的语法，必须与其他的一起使用。可以作为条件使用。</p>
+<h4 id="where">WHERE</h4>
+<p>WHERE 子句用于有条件地从表中选取数据</p>
+<pre><code>SELECT * from runoob_tbl WHERE runoob_author='菜鸟教程';
+</code></pre>
+<h4 id="link">LINK</h4>
+<p>LINK 子句用于进一步描述条件，可以替<code>=</code>,LIKE 通常与 % 一同使用，类似于一个元字符的搜索。 %字符来表示任意字符.</p>
+<pre><code>SELECT field1, field2,...fieldN 
+FROM table_name
+WHERE field1 LIKE condition1 [AND [OR]] filed2 = 'somevalue';
+</code></pre>
+<h4 id="order-by">ORDER BY</h4>
+<p>ORDER BY 子句用于排序,可以使用 ASC 或 DESC 关键字来设置查询结果是按升序或降序排列。 默认情况下，它是按升序排列。</p>
+<pre><code>SELECT field1, field2,...fieldN FROM table_name1, table_name2...
+ORDER BY field1 [ASC [DESC][默认 ASC]], [field2...] [ASC [DESC][默认 ASC]];
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Docker快速入门(2)--Dockerfile]]></title>
+        <id>https://Bluesgavin.github.io/post/docker-kuai-su-ru-men-2-dockerfile/</id>
+        <link href="https://Bluesgavin.github.io/post/docker-kuai-su-ru-men-2-dockerfile/">
+        </link>
+        <updated>2020-04-28T14:26:15.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="docker快速入门2dockerfile">Docker快速入门(2)Dockerfile</h1>
+<h2 id="简述">简述</h2>
+<p>在之前我们用的都是从仓库下载下来的镜像，那如果我们需要创建自己定制的镜像，就可以使用Dockerfile。Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。</p>
+<h2 id="概览">概览</h2>
+<p>Dockerfile实际上就是以一个已经有了的或者线上的镜像为基础,通过Dockerfile文件执行一系列的动作后生成一个新的镜像。所以如果把这个Dockerfile给别人执行 也可以得到和你一样的镜像。</p>
+<h2 id="使用">使用</h2>
+<p>假如现在希望把一个前端项目打包成一个镜像。我们可以在该项目目录下创建Dockerfile文件。并编写内容：</p>
+<pre><code>FROM node
+RUN mkdir /app
+COPY . /app/
+WORKDIR /app/
+RUN npm install --registry=https://registry.npm.taobao.org
+EXPOSE 7003
+ENTRYPOINT [&quot;npm&quot;,&quot;run&quot;,&quot;serve&quot;]
+</code></pre>
+<p>然后在该目录下执行</p>
+<pre><code>docker build -t 【新镜像名称】 .
+</code></pre>
+<p><code>docker build</code>命令最后的<code>.</code>是指，执行这命令的时候上下文就是当前目录。<br>
+现在对上方命令作一下简单说明。</p>
+<ol>
+<li>先用node镜像为基础，本地没有的话会自动下载。</li>
+<li>在node镜像创建的容器中执行<code>mkdir /app</code>创建app文件夹。</li>
+<li>把当前本机目录下的文件拷贝到容器的app文件夹中</li>
+<li>把Dockerfile接下来的工作目录设置为容器的app文件夹</li>
+<li>执行npm install（当然这里是因为app中有刚刚第三步中从本机拷贝过来的package.json文件）</li>
+<li>说明一下这个项目会用到7003端口</li>
+<li>定义这个新镜像在运行时会自动执行<code>npm run serve</code></li>
+</ol>
+<p>执行完之后查看本地镜像是否已经有刚刚创建的。</p>
+<pre><code>docker images
+// 如果需要运行新的镜像只要想普通镜像一样运行即可。
+docker run 【镜像】
+</code></pre>
+<h2 id="命令说明">命令说明</h2>
+<h3 id="from">FROM</h3>
+<p>FROM是Dockerfile的第一行用到的，他的作用是告诉docekrFile这个新镜像的基础镜像是什么。如果执行Dockerfile时，本地没有这个镜像就会先下载。</p>
+<h3 id="run">RUN</h3>
+<p>用于执行后面跟着的命令行命令。</p>
+<pre><code>//有以下俩种格式：
+RUN &lt;命令行命令&gt;
+RUN [&quot;可执行文件&quot;, &quot;参数1&quot;, &quot;参数2&quot;]
+</code></pre>
+<p>注意：Dockerfile 的指令每执行一次都会在 docker 上新建一层。所以过多无意义的层，会造成镜像膨胀过大。如果需要执行多行命令，应该用&amp;&amp; 符号连接命令，这样执行后，只会创建 1 层镜像。</p>
+<h3 id="copy">COPY</h3>
+<p>复制指令，从上下文目录中复制文件或者目录到容器里指定路径。</p>
+<pre><code>COPY D:/doc /mydir/
+</code></pre>
+<h3 id="add">ADD</h3>
+<p>ADD 指令和 COPY 的使用格式一致（同样需求下，官方推荐使用 COPY）。功能也类似，不同之处如下：</p>
+<ul>
+<li>ADD 的优点：在执行 &lt;源文件&gt; 为 tar 压缩文件的话，压缩格式为 gzip, bzip2 以及 xz 的情况下，会自动复制并解压到 &lt;目标路径&gt;。</li>
+<li>ADD 的缺点：在不解压的前提下，无法复制 tar 压缩文件。会令镜像构建缓存失效，从而可能会令镜像构建变得比较缓慢。具体是否使用，可以根据是否需要自动解压来决定。</li>
+</ul>
+<h3 id="cmd">CMD</h3>
+<p>类似于 RUN 指令，用于运行程序，但二者运行的时间点不同:</p>
+<ul>
+<li>CMD 在docker run 时运行。</li>
+<li>RUN 是在 docker build。</li>
+</ul>
+<p>作用：为启动的容器指定默认要运行的程序，程序运行结束，容器也就结束。CMD 指令指定的程序可被 docker run 命令行参数中指定要运行的程序所覆盖。</p>
+<p>注意：如果 Dockerfile 中如果存在多个 CMD 指令，仅最后一个生效。</p>
+<p>格式：</p>
+<pre><code>CMD &lt;shell 命令&gt; 
+CMD [&quot;&lt;可执行文件或命令&gt;&quot;,&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...] 
+CMD [&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...]  # 该写法是为 ENTRYPOINT 指令指定的程序提供默认参数
+</code></pre>
+<h3 id="entrypoint">ENTRYPOINT</h3>
+<p>类似于 CMD 指令，但其不会被 docker run 的命令行参数指定的指令所覆盖，而且这些命令行参数会被当作参数送给 ENTRYPOINT 指令指定的程序。</p>
+<p>但是, 如果运行 docker run 时使用了 --entrypoint 选项，此选项的参数可当作要运行的程序覆盖 ENTRYPOINT 指令指定的程序。</p>
+<p>优点：在执行 docker run 的时候可以指定 ENTRYPOINT 运行所需的参数。</p>
+<p>注意：如果 Dockerfile 中如果存在多个 ENTRYPOINT 指令，仅最后一个生效。</p>
+<p>格式：</p>
+<pre><code>ENTRYPOINT [&quot;&lt;executeable&gt;&quot;,&quot;&lt;param1&gt;&quot;,&quot;&lt;param2&gt;&quot;,...]
+</code></pre>
+<h3 id="env">ENV</h3>
+<p>设置环境变量，定义了环境变量，那么在后续的指令中，就可以使用这个环境变量。</p>
+<p>格式：</p>
+<pre><code>ENV &lt;key&gt; &lt;value&gt;
+ENV &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;...
+</code></pre>
+<h3 id="arg">ARG</h3>
+<p>构建参数，与 ENV 作用一至。不过作用域不一样。ARG 设置的环境变量仅对 Dockerfile 内有效，也就是说只有 docker build 的过程中有效，构建好的镜像内不存在此环境变量。</p>
+<p>构建命令 docker build 中可以用 --build-arg &lt;参数名&gt;=&lt;值&gt; 来覆盖。</p>
+<p>格式：</p>
+<pre><code>ARG &lt;参数名&gt;[=&lt;默认值&gt;]
+</code></pre>
+<h3 id="volume">VOLUME</h3>
+<p>定义匿名数据卷。在启动容器时忘记挂载数据卷，会自动挂载到匿名卷。</p>
+<p>作用：</p>
+<p>避免重要的数据，因容器重启而丢失，这是非常致命的。<br>
+避免容器不断变大。<br>
+格式：</p>
+<pre><code>VOLUME [&quot;&lt;路径1&gt;&quot;, &quot;&lt;路径2&gt;&quot;...]
+VOLUME &lt;路径&gt;
+</code></pre>
+<h3 id="expose">EXPOSE</h3>
+<p>仅仅只是声明端口。</p>
+<p>作用：</p>
+<p>帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射。<br>
+在运行时使用随机端口映射时，也就是 docker run -P 时，会自动随机映射 EXPOSE 的端口。<br>
+格式：</p>
+<pre><code>EXPOSE &lt;端口1&gt; [&lt;端口2&gt;...]
+</code></pre>
+<h3 id="workdir">WORKDIR</h3>
+<p>指定工作目录。用 WORKDIR 指定的工作目录，会在构建镜像的每一层中都存在。（WORKDIR 指定的工作目录，必须是提前创建好的）。</p>
+<p>docker build 构建镜像过程中的，每一个 RUN 命令都是新建的一层。只有通过 WORKDIR 创建的目录才会一直存在。<br>
+格式：</p>
+<pre><code>WORKDIR &lt;工作目录路径&gt;
+</code></pre>
+<h3 id="user">USER</h3>
+<p>用于指定执行后续命令的用户和用户组，这边只是切换后续命令执行的用户（用户和用户组必须提前已经存在）。</p>
+<p>格式：</p>
+<pre><code>USER &lt;用户名&gt;[:&lt;用户组&gt;]
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Docker快速入门]]></title>
+        <id>https://Bluesgavin.github.io/post/docker-kuai-su-ru-men/</id>
+        <link href="https://Bluesgavin.github.io/post/docker-kuai-su-ru-men/">
+        </link>
+        <updated>2020-04-28T14:25:42.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="docker快速入门">Docker快速入门</h1>
+<h2 id="简述">简述</h2>
+<p>可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。<br>
+这里必须了解2个很重要的概览：</p>
+<ul>
+<li>镜像</li>
+<li>容器</li>
+</ul>
+<h2 id="概览一镜像">概览一：镜像</h2>
+<p>镜像可以理解成是光盘一样的东西，载入之后就可以直接使用了。</p>
+<h3 id="下载">下载</h3>
+<p>docker的镜像可以在哪里下载呢？docker官方提供一个像github一样的仓库来存放docker的镜像。就是dockerhub。在这里可以找到一些官方的镜像或者别人修改过的第三方镜像。<br>
+<a href="https://hub.docker.com/">docerkhub地址</a><br>
+至于怎么下载，很简单只要执行以下命令即可</p>
+<pre><code>docker pull [镜像名]
+</code></pre>
+<p>docker的镜像事实上是有版本区分的在pull的时候可以指定版本。如果不指定默认会下载最新版本。</p>
+<pre><code>docker pull node:10-alpine
+</code></pre>
+<p>成功下载之后，镜像就保存在本机了。</p>
+<h3 id="查看镜像">查看镜像</h3>
+<p>下载镜像之后怎么查看自己已经有的镜像呢？<br>
+执行以下命令之后可以看到本机已经有的镜像。</p>
+<pre><code>docker images
+</code></pre>
+<p>输出信息</p>
+<pre><code>REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE 
+node                   10-alpine           852391892b9f        2 years ago         742MB
+</code></pre>
+<h3 id="运行镜像">运行镜像</h3>
+<p>接下来就可以使用我们下载的镜像了，运行镜像的命令是：</p>
+<pre><code>docker run --rm -it [镜像名]
+</code></pre>
+<p>即可运行镜像，可以看到终端已经进入自己的镜像环境了。<br>
+这里有两个参数</p>
+<ul>
+<li>--rm，关闭之后自动删除容器。</li>
+<li>-i，把交互界面保留着。</li>
+<li>-t，分配一个虚拟的终端。</li>
+</ul>
+<p>it一般都是一起出现的。<br>
+这里可以加上<code>/bin/bash</code>,可以进入容器的终端中。</p>
+<pre><code>docker run --rm -it [镜像名] /bin/bash
+</code></pre>
+<p>这时终端已经进去容器内了</p>
+<pre><code>// 看到容器内部分信息
+root@07eac52f677e:/# cat /proc/version
+Linux version 4.19.27-linuxkit (root@82332b297024) (gcc version 8.2.0 (Alpine 8.2.0)) #1 SMP Sun Mar 10 18:51:44 UTC 2019
+</code></pre>
+<p>如果要退出就执行exit即可。</p>
+<h2 id="概览二容器">概览二：容器</h2>
+<p>容器可以理解成一个提供给我们运行镜像的环境。</p>
+<h3 id="查看容器列表">查看容器列表</h3>
+<p>在运行镜像之后执行</p>
+<pre><code>docker ps -a
+</code></pre>
+<p>可以看到当前的容器列表。<br>
+这里参数<code>-a</code>代表查看所有容器。如果不加a只显示正在运行的。<br>
+这里需要提到一个参数<code>-d</code>。</p>
+<pre><code>docker run  -itd [镜像名]
+</code></pre>
+<p>加上d之后运行镜像后会返回容器id。<br>
+这是时候执行<code>docker ps -a</code>就可以看到容器列表。</p>
+<pre><code>CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS               NAMES
+0e2ba846e831        node:6.11           &quot;node&quot;              About a minute ago   Up About a minute                       focused_shannon
+</code></pre>
+<h3 id="进入容器">进入容器</h3>
+<p>用上面的命令我们可以知道自己容器的id</p>
+<pre><code>docker exec -it [容器id] /bin/bash 
+</code></pre>
+<p>这里<code>docker exec</code>是一个进入容器的命令，该命令在退出容器后，容器可以继续执行。此外命令可以直接执行命令。</p>
+<h3 id="停止容器">停止容器</h3>
+<p>假如我们需要停止容器时，只要执行<code>docker stop [容器id]</code>即可。</p>
+<h3 id="删除容器">删除容器</h3>
+<p>假如我们需要停止容器时，只要执行<code>docker rm [容器id]</code>即可。</p>
+<h2 id="数据同步">数据同步</h2>
+<p>如果容器中想用本机的内容进行操作可以用<code>-v</code>来把本机的内容挂载到容器内。</p>
+<pre><code>docker run -it -v /test:/soft centos /bin/bash
+</code></pre>
+<p>这里在容器的/soft中就会有本机中/test的文件。这里<code>:</code>前后的路径都应该用绝对路径。</p>
+<h2 id="网络端口映射">网络端口映射</h2>
+<p>容器中可以运行一些网络应用，要让外部也可以访问这些应用，可以通过 <code>-P</code> 或 <code>-p</code> 参数来指定端口映射。</p>
+<ul>
+<li>-P :是容器内部端口随机映射到主机的高端口。</li>
+<li>-p : 是容器内部端口绑定到指定的主机端口。</li>
+</ul>
+<p>如果用<code>-P</code>运行容器之后，可以用<code>docker ps</code>看到端口情况。</p>
+<pre><code>// 运行镜像
+runoob@runoob:~$ docker run -d -P training/webapp python app.py
+fce072cc88cee71b1cdceb57c2821d054a4a59f67da6b416fceb5593f059fc6d
+
+// 查看看端口情况
+runoob@runoob:~$ docker ps
+CONTAINER ID    IMAGE               COMMAND            ...           PORTS                     NAMES
+fce072cc88ce    training/webapp     &quot;python app.py&quot;    ...     0.0.0.0:32768-&gt;5000/tcp   grave_hopper
+</code></pre>
+<p>如果是用<code>-p</code>运行容器，可以指定端口映射。</p>
+<pre><code>runoob@runoob:~$ docker run -d -p 5000:5000 training/webapp python app.py
+33e4523d30aaf0258915c368e66e03b49535de0ef20317d3f639d40222ba6bc0
+</code></pre>
+<p>另外，我们可以指定容器绑定的网络地址，比如绑定 127.0.0.1。</p>
+<pre><code>runoob@runoob:~$ docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
+6779686f06f6204579c1d655dd8b2b31e8e809b245a97b2d3a8e35abe9dcd22a
+</code></pre>
+<h3 id="查看端口情况">查看端口情况</h3>
+<p>docker port 命令可以让我们快捷地查看端口的绑定情况。</p>
+<pre><code>runoob@runoob:~$ docker port adoring_stonebraker 5000
+127.0.0.1:5001
+</code></pre>
+<h2 id="网络">网络</h2>
+<p>上面如果我们通过端口映射可以搭建一个从容器链接本机的关系。这样就可以通过不同的容器链接到主机，然后间接链接不同的容器。这是一些简单程序的方法。如果想要让容器之间直接链接需要可以使用【网络】。</p>
+<h3 id="新建网络">新建网络</h3>
+<pre><code> docker network create -d bridge 【网络名】
+</code></pre>
+<ul>
+<li>-d：参数指定 Docker 网络类型，有 bridge、overlay。其中 overlay 网络类型用于 Swarm mode，在本小节中你可以忽略它。</li>
+</ul>
+<h3 id="连接容器">连接容器</h3>
+<pre><code>// 运行第一个容器并链接到刚刚创建的网络
+docker run -itd --name test1 --network test-net ubuntu /bin/bash
+// 运行第二个容器并链接到刚刚创建的网络
+docker run -itd --name test2 --network test-net ubuntu /bin/bash
+</code></pre>
+<p>此时进入其中一个容器</p>
+<pre><code>docker exec -it test1 /bin/bash
+</code></pre>
+<p>用ping来证实容器已经链接</p>
+<pre><code>ping test2
+</code></pre>
+<p>可以看到test1和test2已经链接了。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[javasricpt]Object.defineProperty]]></title>
+        <id>https://Bluesgavin.github.io/post/javasricptobjectdefineproperty/</id>
+        <link href="https://Bluesgavin.github.io/post/javasricptobjectdefineproperty/">
+        </link>
+        <updated>2019-12-18T14:26:37.000Z</updated>
+        <content type="html"><![CDATA[<p># Object.defineProperty</p>
+<p>defineProperty方法的作用是重新定义（修改）一个对象属性。</p>
+<p>## 对象赋值</p>
+<p>一般我们给对象赋值都可以直接用</p>
+<p>```</p>
+<p>obj.name = &quot;张三&quot;;</p>
+<p>或者</p>
+<p>obj[&quot;name&quot;] = &quot;张三&quot;;</p>
+<p>```</p>
+<p>## Object.defineProperty定义</p>
+<p>Object.defineProperty可以说是高级版的对象属性定义。使用方法：</p>
+<p>```</p>
+<p>Object.defineProperty(obj, prop, desc)</p>
+<p>```</p>
+<p>&gt;* obj 是对象</p>
+<p>&gt;* prop 是对象的具体属性</p>
+<p>&gt;* desc 是对属性的描述，类似配置</p>
+<p>#### Object.defineProperty描述内容</p>
+<p>desc是一个对象，他可以写的内容有：</p>
+<p>| 描述       | 说明   |</p>
+<p>| --------   | :-----  |</p>
+<p>| value      | string,number,object,array,boolean,属性的值，不填默认为undefined |</p>
+<p>| writable   | boolean,定义属性能否被改写，假如为true。修改属性之后，返回undefined。 默认值为false   |</p>
+<p>| set        | function,  给属性提供setter方法,接受一个参数。每次属性被修改都会调用该方法。默认值为undefined|</p>
+<p>| get        | function,  给属性提供getter方法,接受一个参数。每次属性被读取都会调用该方法。默认值为undefined|</p>
+<p>| configurable    | boolean,  描述属性是否配置，以及可否删除。默认值为false|</p>
+<p>| enumerable    | boolean,  描述属性是否会出现在for in 或者 Object.keys()的遍历中。默认值为false|</p>
+<p>#### set,get例子</p>
+<p>set,get是vue数据绑定的原理。</p>
+<p>```</p>
+<p>let obj = {};</p>
+<p>let temp;</p>
+<p>Object.defineProperty(obj,&quot;name&quot;,{</p>
+<p>set(value){</p>
+<p>temp = value;</p>
+<p>// do something</p>
+<p>},</p>
+<p>get(){</p>
+<p>// do something</p>
+<p>return temp;</p>
+<p>}</p>
+<p>});</p>
+<p>```</p>
+<p>#### configurable例子</p>
+<p>```</p>
+<p>let obj = {};</p>
+<p>Object.defineProperty(obj,&quot;name&quot;,{</p>
+<p>value: &quot;张三&quot;,</p>
+<p>configurable: false</p>
+<p>});</p>
+<p>Object.defineProperty(obj,&quot;name&quot;,{</p>
+<p>value: &quot;李四&quot;</p>
+<p>});</p>
+<p>// 再次定义该属性会报错：Cannot redefine property: name</p>
+<p>delete obj.name;</p>
+<p>// 会返回false，再次看obj.name会发现没有删除成功。</p>
+<p>```</p>
+<p>#### enumerable例子</p>
+<p>```</p>
+<p>let obj = {};</p>
+<p>Object.defineProperty(obj,&quot;name&quot;,{</p>
+<p>value: &quot;张三&quot;,</p>
+<p>enumerable: false</p>
+<p>});</p>
+<p>obj.job = &quot;teacher&quot;;</p>
+<p>Object.defineProperty(obj,&quot;age&quot;,{</p>
+<p>value: &quot;12&quot;,</p>
+<p>enumerable: true</p>
+<p>});</p>
+<p>conosole.log(Object.keys(obj)) // [&quot;job&quot;,&quot;age&quot;];</p>
+<p>for( let i in obj){ console.log(i)}; // &quot;job&quot;,&quot;age&quot;</p>
+<p>```</p>
+<p>#### 注意项</p>
+<p>```</p>
+<p>// 用obj.name直接定义，和Object.definePropery定义的效果默认值并不同。</p>
+<p>obj.name = &quot;张三&quot;;</p>
+<p>// 等于</p>
+<p>Object.definePropery(obj,&quot;name&quot;,{</p>
+<p>value: &quot;张三&quot;,</p>
+<p>enumerable: true,</p>
+<p>configurable: true,</p>
+<p>writable: true</p>
+<p>});</p>
+<p>Object.definePropery(obj,&quot;name&quot;,{</p>
+<p>value: &quot;张三&quot;</p>
+<p>});</p>
+<p>// 等于</p>
+<p>Object.definePropery(obj,&quot;name&quot;,{</p>
+<p>value: &quot;张三&quot;,</p>
+<p>enumerable: false,</p>
+<p>configurable: false,</p>
+<p>writable: false</p>
+<p>});</p>
+<p>```</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[javascript]正则回顾]]></title>
+        <id>https://Bluesgavin.github.io/post/javascriptzheng-ze-hui-gu/</id>
+        <link href="https://Bluesgavin.github.io/post/javascriptzheng-ze-hui-gu/">
+        </link>
+        <updated>2019-11-19T14:27:17.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="正则">正则</h1>
+<p>正则是在字符串中搜索，检验出具体内容的的规则。他有自己的语法，配置。正则用得6的同学，很多问题都可以迅速解决。</p>
+<h2 id="语法">语法</h2>
+<pre><code>/正则表达式主体/修饰符(可选)
+</code></pre>
+<h2 id="修饰符">修饰符</h2>
+<p>修饰符就好像是正则中的配置，写在主体外。</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td style="text-align:left">执行对大小写不敏感的匹配。</td>
+</tr>
+<tr>
+<td>g</td>
+<td style="text-align:left">执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）。</td>
+</tr>
+<tr>
+<td>m</td>
+<td style="text-align:left">执行多行匹配。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="元字符">元字符</h2>
+<p>元字符是正则里，某些符号，内容的代表。</p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\d</td>
+<td style="text-align:left">查找数字。</td>
+</tr>
+<tr>
+<td>\s</td>
+<td style="text-align:left">查找空白字符。</td>
+</tr>
+<tr>
+<td>\b</td>
+<td style="text-align:left">匹配单词边界。</td>
+</tr>
+<tr>
+<td>\uxxxx</td>
+<td style="text-align:left">查找以十六进制数 xxxx 规定的 Unicode 字符。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="量词符号">量词符号</h2>
+<p>量词符号指对于指定内容出现的次数。</p>
+<table>
+<thead>
+<tr>
+<th>量词</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td style="text-align:left">匹配任何包含至少一个 n 的字符串。</td>
+</tr>
+<tr>
+<td>*</td>
+<td style="text-align:left">匹配任何包含零个或多个 n 的字符串。</td>
+</tr>
+<tr>
+<td>?</td>
+<td style="text-align:left">匹配任何包含零个或一个 n 的字符串。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="括号">括号</h2>
+<h4 id="1小括号">1.小括号()</h4>
+<p>小括号是一小片段目标内容，他常跟<code>|</code>搭配，表示多选。</p>
+<pre><code>表示匹配aaa或者bbb
+/(aaa|bbb)/
+</code></pre>
+<h4 id="2中括号">2.中括号[]</h4>
+<p>中括号跟小括号类似，可是他常跟[0-9a-zA-Z.*?!]等搭配，表示一些常用字符。</p>
+<pre><code>表示数字
+/[0-9]/
+表示字母
+/[a-zA-Z]/
+表示普通字符
+/[-!?*(]/
+</code></pre>
+<h4 id="3大括号">3.大括号{}</h4>
+<p>大括号是匹配次数。</p>
+<pre><code>表示长度为3的数字
+/\d{3}/
+
+表示长度为1-3的数字
+/\d{1，3}/
+</code></pre>
+<h2 id="正则方法">正则方法</h2>
+<h4 id="1test">1.test</h4>
+<p>test()用于检测字符串里是否匹配目标正则的规则。返回布尔值。</p>
+<pre><code>/\d{3}/.test(&quot;a1b2c3&quot;)
+// false
+
+/\d{1,3}/.test(&quot;a1b2c3&quot;)
+// true
+</code></pre>
+<h4 id="2exec">2.exec</h4>
+<p>exec()方法用于检索字符串中的正则表达式的匹配。返回一个数据，内容为匹配结果，如果未找到匹配，则返回值为 null。exec返回的结果里有lastIndex属性,记录每次找到结果的坐标。</p>
+<pre><code>/\d{1,3}/.exec(&quot;a1b2c3&quot;)
+</code></pre>
+<h4 id="特殊match">特殊：match</h4>
+<p>match不是正则方法。是字符串的方法。可是他很常用来作正则提取。他和exec不同的点在于之一是match返回的数组可以，获得所有匹配内容。而exec每次只会返回一个，需要多次调用才能获得所有目标。</p>
+<pre><code>var str = &quot;&lt;div&gt;&lt;a&gt;1dasd32&lt;/a&gt;&lt;a&gt;2&lt;/a&gt;&lt;a&gt;3&lt;/a&gt;&lt;/div&gt;&quot;;
+str.match(/&lt;a&gt;([a-zA-Z0-9]*)&lt;\/a&gt;/g);
+// [&quot;&lt;a&gt;1dasd32&lt;/a&gt;&quot;, &quot;&lt;a&gt;2&lt;/a&gt;&quot;, &quot;&lt;a&gt;3&lt;/a&gt;&quot;]
+
+/&lt;a&gt;([a-zA-Z0-9]*)&lt;\/a&gt;/g.exec(str);
+// [&quot;&lt;a&gt;1dasd32&lt;/a&gt;&quot;,&quot;1dasd32&quot;];
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[佛系笔记]-用node操作mongodb]]></title>
+        <id>https://Bluesgavin.github.io/post/fo-xi-bi-ji-yong-node-cao-zuo-mongodb/</id>
+        <link href="https://Bluesgavin.github.io/post/fo-xi-bi-ji-yong-node-cao-zuo-mongodb/">
+        </link>
+        <updated>2019-11-05T14:28:04.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<ul>
+<li>佛系笔记系列是不求深究，只求会用的粗暴总结。</li>
+</ul>
+</blockquote>
+<h1 id="用node操作mongodb">用node操作mongodb</h1>
+<p>首先我假设大家电脑里已经装好了mongodb，我们现在来看看怎么用nodeJS来操作mongodb。让那些用nodeJS搭的服务的前端小白也可以用上简单的数据库。</p>
+<h2 id="1-新建项目并安装项目mongodb">1. 新建项目并安装项目mongodb</h2>
+<p>新建项目并在项目中安装mongodb</p>
+<pre><code>cnpm install mongodb
+// or
+npm install mongodb
+// or
+yarn add mongodb
+</code></pre>
+<h2 id="2-连接数据库">2. 连接数据库</h2>
+<p>假设大家的node入口都是index.js。对于数据库的每一次操作都必须遵循：</p>
+<ol>
+<li>连接数据库</li>
+<li>操作数据库</li>
+<li>关闭数据库（断开连接）</li>
+</ol>
+<p>我们先利用mongodb模块创建一个连接,控制台输出<code>连接成功</code>代表操作无误。</p>
+<pre><code>var MongoClient = require('mongodb').MongoClient;
+var url = &quot;mongodb://localhost:27017/&quot;;
+ 
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  console.log(&quot;连接成功&quot;);
+  db.close();  // 关闭数据库
+});
+</code></pre>
+<h2 id="3-操作数据库">3. 操作数据库</h2>
+<p>mongodb 数据库的结构从小到大分别为：数据库-集合-数据。</p>
+<h4 id="1创建数据库">1.创建数据库</h4>
+<p>我们先来说创建数据库，mongodb和mysql不同，在访问的数据库不存在时，会自动生成。</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    // 连接成功后db为数据库实例
+    if (err) throw err;
+    // 用db(数据库名称)来操作数据库，不存在则创建
+    var dbo = db.db(&quot;testDB&quot;);
+        console.log(&quot;创建数据库testDB成功&quot;);
+        db.close();
+});
+</code></pre>
+<h4 id="2创建集合">2.创建集合</h4>
+<p>用数据库实例的createCollection()方法创建集合。createCollection第一个参数是集合名，第二个参数是一个函数，返回操作信息。</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+    if (err) throw err;
+    console.log('数据库已创建');
+    var dbase = db.db(&quot;testDB&quot;);
+    // 用db(数据库名称)获得数据库实例之后，用createCollection创建集合
+    dbase.createCollection('site', function (err, res) {
+        if (err) throw err;
+        console.log(&quot;创建集合!&quot;);
+        db.close();
+    });
+});
+</code></pre>
+<h4 id="3删除集合">3.删除集合</h4>
+<p>使用 drop() 方法来删除集合：</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+    // 删除 test 集合
+    dbo.collection(&quot;test&quot;).drop(function(err, delOK) {  // 执行成功 delOK 返回 true，否则返回 false
+        if (err) throw err;
+        if (delOK) console.log(&quot;集合已删除&quot;);
+        db.close();
+    });
+});
+</code></pre>
+<h4 id="4插入数据">4.插入数据</h4>
+<p>用collection()访问集合,再用insertOne插入数据。插入多条信息可以使用 insertMany()：</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+    var myobj = { name: &quot;菜鸟教程&quot;, url: &quot;www.testDB&quot; };
+    dbo.collection(&quot;site&quot;).insertOne(myobj, function(err, res) {
+        // 第二个参数是一个函数，返回操作信息
+        if (err) throw err;
+        console.log(&quot;文档插入成功&quot;);
+        db.close();
+    });
+});
+// 插入多条信息可以使用 insertMany()：
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+    var myobj =  [
+        { name: '菜鸟工具', url: 'https://c.testDB.com', type: 'cn'},
+        { name: 'Google', url: 'https://www.google.com', type: 'en'},
+        { name: 'Facebook', url: 'https://www.google.com', type: 'en'}
+       ];
+    dbo.collection(&quot;site&quot;).insertMany(myobj, function(err, res) {
+        if (err) throw err;
+        console.log(&quot;插入的文档数量为: &quot; + res.insertedCount);
+        db.close();
+    });
+});
+</code></pre>
+<h4 id="5查询数据">5.查询数据</h4>
+<p>在集合的实例上用find来查询数据</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+     var whereStr = {&quot;name&quot;:'张三'};  // 查询条件
+    dbo.collection(&quot;site&quot;).find(whereStr).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+    });
+});
+
+
+// 假如查询所以数据，则不需要传条件
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+    dbo.collection(&quot;site&quot;). find({}).toArray(function(err, result) { // 返回集合中所有数据
+        if (err) throw err;
+        console.log(result);
+        db.close();
+    });
+});
+</code></pre>
+<h4 id="6更新修改数据">6.更新(修改)数据</h4>
+<p>集合实例用updateOne来修改数据，以下实例将 name 为 &quot;张三&quot; 的 age 改为 23：</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+    var whereStr = {&quot;name&quot;:'张三'};  // 查询条件
+    var updateStr = {$set: { &quot;age&quot; : &quot;23&quot; }};
+    dbo.collection(&quot;site&quot;).updateOne(whereStr, updateStr, function(err, res) {
+        if (err) throw err;
+        console.log(&quot;文档更新成功&quot;);
+        db.close();
+    });
+});
+
+
+// 同样，如果想要修改多条数据则要用updateMany（）；
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+    var whereStr = {&quot;type&quot;:'en'};  // 查询条件
+    var updateStr = {$set: { &quot;url&quot; : &quot;https://www.testDB.com&quot; }};
+    dbo.collection(&quot;site&quot;).updateMany(whereStr, updateStr, function(err, res) {
+        if (err) throw err;
+         console.log(res.result.nModified + &quot; 条文档被更新&quot;);
+        db.close();
+    });
+});
+</code></pre>
+<h4 id="7删除数据">7.删除数据</h4>
+<p>与更新相同，很多的数据修改如果想要精准地操作，都要先通过find找到对应数据</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+    var whereStr = {&quot;name&quot;:'张三'};  // 查询条件
+    dbo.collection(&quot;site&quot;).deleteOne(whereStr, function(err, obj) {
+        if (err) throw err;
+        console.log(&quot;文档删除成功&quot;);
+        db.close();
+    });
+});
+
+// 如果要删除多条语句可以使用 deleteMany() 方法
+</code></pre>
+<h4 id="8排序">8.排序</h4>
+<p>使用 sort() 方法，该方法接受一个参数，规定是升序(1)还是降序(-1)。</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+    var mysort = { type: 1 };
+    dbo.collection(&quot;site&quot;).find().sort(mysort).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+    });
+});
+</code></pre>
+<h4 id="9分页">9.分页</h4>
+<p>用limit来筛选要几条数据，用skip来选择跳过几条数据</p>
+<pre><code>MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+    dbo.collection(&quot;site&quot;).find().limit(2).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+  });
+});
+
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(&quot;testDB&quot;);
+    dbo.collection(&quot;site&quot;).find().skip(2).limit(2).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+  });
+});
+</code></pre>
+<p><a href="https://www.runoob.com/nodejs/nodejs-mongodb.html">本文参考文章地址</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[佛系笔记]-我会用命令来git]]></title>
+        <id>https://Bluesgavin.github.io/post/fo-xi-bi-ji-wo-hui-yong-ming-ling-lai-git/</id>
+        <link href="https://Bluesgavin.github.io/post/fo-xi-bi-ji-wo-hui-yong-ming-ling-lai-git/">
+        </link>
+        <updated>2019-11-05T14:27:43.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<ul>
+<li>佛系笔记系列是不求深究，只求会用的粗暴总结。</li>
+</ul>
+</blockquote>
+<h1 id="git">GIT</h1>
+<p>今天请大家来和我一起背命令~~</p>
+<h2 id="创建">创建</h2>
+<p>在项目的目录下执行<code>git init</code>即可将项目变为git项目。目录下会创建.git文件夹。用来管理项目。</p>
+<h2 id="添加文件至仓库">添加文件至仓库</h2>
+<p>提交文件要执行两个动作：</p>
+<h4 id="git-add">git add</h4>
+<p>修改了的文件先用<code>git add &lt;文件名&gt;</code>,把文件添加到仓库。</p>
+<h4 id="git-commit">git commit</h4>
+<p>添加到仓库之后，<code>git commit &lt;文件名&gt;</code>把文件提交到仓库。注意在使用commit时，<code>git commit &lt;文件名&gt; -m &quot;xxx&quot;</code>-m后面输入的是本次提交的说明，可以输入任意内容，当然最好是有意义的，这样你就能从历史记录里方便地找到改动记录。执行之后会返回显示多少文件改变了。</p>
+<h2 id="查看状态">查看状态</h2>
+<h4 id="git-status">git status</h4>
+<p><code>git status</code>命令可以让我们知道目录中文件与仓库中的差别。可以知道什么被修改过了，但还没有准备提交的修改。</p>
+<h4 id="git-diff">git diff</h4>
+<p><code>git diff</code>可以看到被修改的文件，具体被修改了哪一行。</p>
+<h2 id="查看日志">查看日志</h2>
+<h4 id="git-log">git log</h4>
+<p><code>git log</code>可以看到三次提交记录，和对应的版本号。加上--pretty=oneline参数可以让结果更简约。</p>
+<h4 id="git-reflog">git reflog</h4>
+<p><code>git reflog</code>记录了你的每一次命令，包括reset的动作。</p>
+<h2 id="指针">指针</h2>
+<p>如果把git的厉害记录看成是一个钟表，我们现在所在的位置就是指针指向的位置。git中的指针是HEAD。用HEAD表示当前版本，也就是最新的提交1094adb...，上一个版本就是HEAD<sup>，上上一个版本就是HEAD</sup><sup>，当然往上100个版本写100个</sup>比较容易数不过来，所以写成HEAD~100。</p>
+<h4 id="git-reset">git reset</h4>
+<p>git给了我们时光倒流的机会。我们可以改名git的HEAD的指向。用<code>git reset</code>可以倒退指针，如回到上一个版本。</p>
+<pre><code> git reset --hard HEAD^
+</code></pre>
+<h2 id="远程仓库">远程仓库</h2>
+<p>我们电脑本地的目录只存在本地，通过远程仓库（github,gitlab等）可以实现多人（多设备）之间协调修改项目。</p>
+<h4 id="git-remote">git remote</h4>
+<p>可以用<code>git remote</code>把本地项目关联到远程仓库中。</p>
+<pre><code>    git remote add origin &lt;地址&gt;
+</code></pre>
+<h4 id="git-push">git push</h4>
+<p>用<code>git push</code>命令，可以把当前分支master推送到远程。对于新建的项目，远程仓库是空的，在第一次push 的时候如果带上<code>-u</code>。不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
+<h4 id="git-clone">git clone</h4>
+<p>如果想要从远程仓库中克隆项目到自己本地中，可以用<code>git clone &lt;地址&gt;</code>,即可。</p>
+<h2 id="分支">分支</h2>
+<p>如果把git的记录看成时间线，分支就是从一个点开始分出的平行宇宙。各个分支之间互不影响。在未来的某一点可以让分支合并。<br>
+在git中主分支默认叫做<code>master</code>。</p>
+<h4 id="git-branch">git branch</h4>
+<p><code>git branch &lt;分支名&gt;</code>，创建新分支。<br>
+<code>git branch</code> 会显示所有分支<br>
+<code>git branch -d dev</code> 会删除指定分支</p>
+<h4 id="git-checkout">git checkout</h4>
+<p><code>git checkout</code>用作创建或者切换分支。</p>
+<pre><code>    git checkout -b dev
+</code></pre>
+<p>带上<code>-b</code>表示创建并切换.<br>
+*另外<code>git checkout -- &lt;文件名&gt;</code>还可以撤消文件的修改，至当前仓库版本的内容。</p>
+<h4 id="git-switch">git switch</h4>
+<pre><code> git switch &lt;分支名&gt;
+</code></pre>
+<p>用switch更加严谨，也是新版本推荐的。加上<code>-c</code>，创建和切换</p>
+<h4 id="git-merge">git merge</h4>
+<p>git merge命令用于合并指定分支到当前分支</p>
+<h2 id="总结">总结</h2>
+<p>现在其实有很多git的可视化工具，很多也做得很好。我们为什么还要用命令来玩git呢？第一，可以装逼。第二，假如我们在开发一个线上正在用的项目。如果通过git来给线上更新，可以省去不少麻烦，出了问题还可以reset一下。毕竟服务器一般没有ui。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[佛系笔记]gulp快速上手]]></title>
+        <id>https://Bluesgavin.github.io/post/fo-xi-bi-ji-gulp-kuai-su-shang-shou/</id>
+        <link href="https://Bluesgavin.github.io/post/fo-xi-bi-ji-gulp-kuai-su-shang-shou/">
+        </link>
+        <updated>2019-08-22T14:28:44.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="gulp"><a href="https://www.gulpjs.com.cn/">gulp</a></h1>
+<h2 id="安装">安装</h2>
+<p>需要全局安装cli</p>
+<pre><code>npm install --global gulp-cli
+</code></pre>
+<p>项目本身安装gulp</p>
+<pre><code>npm install --save-dev gulp
+</code></pre>
+<p>在项目里用<code>gulp --version</code>看到两者版本</p>
+<pre><code>CLI version 2.0.1
+Local version 4.0.0
+</code></pre>
+<h2 id="入口文件gulpfile">入口文件(gulpfile)</h2>
+<p>在项目根目录创建gulpfile.js作为gulp入口文件。gulpfile.js中除了可以写gulp本身api,JavaScript和node也可以正常书写。但如果用到其他ts或es6则需要编译一下。</p>
+<h2 id="api">api</h2>
+<p>先讲一下gulpfile的基本结构，文件需要暴露一些task。其中default会直接调用。</p>
+<pre><code>var gulp = require('gulp');
+function defaultTask(cb) {
+    cb();
+}
+exports.default = defaultTask
+</code></pre>
+<p>假如暴露的是其他task，则命令则需要用gulp加对应task名称启动。</p>
+<pre><code>var gulp = require('gulp');
+function defaultTask(cb) {
+    cb();
+}
+exports.copy = defaultTask
+</code></pre>
+<p>以上任务用<code>gulp copy</code>调用。用<code>gulp --tasks</code>可以查看所有task;</p>
+<h4 id="src"><a href="https://www.gulpjs.com.cn/docs/api/src/">src</a>(globs, [options])</h4>
+<p>gulp中文件处理的是Vinyl对象。src()是文件的入口，创建Vinyl对象。第二个参数option是配置对象。</p>
+<h4 id="dest"><a href="https://www.gulpjs.com.cn/docs/api/dest/">dest</a>(directory, [options])</h4>
+<p>创建一个用于将 Vinyl 对象写入到文件系统的流。</p>
+<pre><code>const { src, dest } = require('gulp');
+
+function copy() {
+  return src('input/*.js')
+    .pipe(dest('output/'));
+}
+
+exports.copy = copy;
+</code></pre>
+<p>会先找到input文件夹下后缀名为js的所有文件，然后复制一份到output下。</p>
+<h4 id="watch"><a href="https://www.gulpjs.com.cn/docs/api/watch/">watch</a>(globs, [options], [task])</h4>
+<p>监听 globs 并在发生更改时运行任务。任务与任务系统的其余部分被统一处理。用on可以监听不同的事件</p>
+<pre><code>const { watch } = require('gulp');
+
+const watcher = watch(['input/*.js']);
+
+watcher.on('change', function(path, stats) {
+  console.log(`File ${path} was changed`);
+});
+
+watcher.on('add', function(path, stats) {
+  console.log(`File ${path} was added`);
+});
+
+watcher.on('unlink', function(path, stats) {
+  console.log(`File ${path} was removed`);
+});
+
+watcher.close();
+</code></pre>
+<h2 id="globs"><a href="https://www.gulpjs.com.cn/docs/getting-started/explaining-globs/">globs</a></h2>
+<p>src()的第一个参数称为globs。不同于正则他有自己的规则。<br>
+glob 是由普通字符和/或通配字符组成的字符串，用于匹配文件路径。可以利用一个或多个 glob 在文件系统中定位文件。<br>
+主要信息：</p>
+<ol>
+<li>src可以传入一个glob,<code>src(&quot;input.js&quot;)</code>。也可以传多个，会按顺序执行。<code>src([&quot;input.js&quot;,&quot;input1.js&quot;])</code>。</li>
+<li>在 glob 中，分隔符永远是 <code>/</code>字符。<code>\\</code> 字符被保留作为转义符使用。</li>
+<li>避免使用 Node 的 path 类方法来创建 glob。</li>
+<li><code>*</code>在一个字符串片段中匹配任意数量的字符，包括零个匹配。对于匹配单级目录下的文件很有用。</li>
+<li><code>**</code>在多个字符串片段中匹配任意数量的字符，包括零个匹配。 对于匹配嵌套目录下的文件很有用。</li>
+<li><code>!</code>取反。跟在目标glob后，一个取反对应一个glob。表述在匹配的glob中排除什么。</li>
+</ol>
+<pre><code>['script/**/*.js', '!scripts/vendor/', 'scripts/vendor/react.js']
+</code></pre>
+<h2 id="创建任务"><a href="https://www.gulpjs.com.cn/docs/getting-started/creating-tasks/">创建任务</a></h2>
+<p>gulp有分公开任务和私有任务。公开任务就是正常的使用方式。私有任务是在gulpfile内部通过<code>series()</code>或 <code>parallel()</code>自己组合的任务。<br>
+<code>series()</code>让任务（task）按顺序执行。<code>parallel()</code>以最大并发来运行的任务。两者可以组合使用。</p>
+<pre><code>const { series, parallel } = require('gulp');
+
+function clean(cb) {
+  // body omitted
+  cb();
+}
+
+function css(cb) {
+  // body omitted
+  cb();
+}
+
+function javascript(cb) {
+  // body omitted
+  cb();
+}
+
+exports.build = series(clean, parallel(css, javascript));
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[javascript]symbol是什么？]]></title>
+        <id>https://Bluesgavin.github.io/post/javascriptsymbol-shi-shi-me/</id>
+        <link href="https://Bluesgavin.github.io/post/javascriptsymbol-shi-shi-me/">
+        </link>
+        <updated>2019-07-12T14:29:24.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="symbol">symbol</h1>
+<p>symbol是ES6中一种新的数据类型。平时很少会用到，今天特意了解一下。或许某天遇到什么需求可以派上用场。</p>
+<h2 id="首先它是一种新的数据类型">首先它是一种新的数据类型</h2>
+<p>使用方法</p>
+<pre><code>let e = Symbol()
+</code></pre>
+<p>这样便创建了一个Symbol实例。如果我们用typeof来检查它，会返回symbol，一个新的类型。</p>
+<pre><code>typeof e //symbol
+</code></pre>
+<h2 id="它是唯一的">它是唯一的</h2>
+<p>每个symbol实例都是唯一的。</p>
+<pre><code>let s1 = Symbol()
+let s2 = Symbol('another symbol')
+let s3 = Symbol('another symbol')
+
+s1 === s2 // false
+s2 === s3 // false
+</code></pre>
+<h2 id="对象属性">对象属性</h2>
+<p>正因为他是唯一的。我们可以把他做对象的特定属性。</p>
+<pre><code>const PROP_NAME = Symbol()
+const PROP_AGE = Symbol()
+
+let obj = {
+  [PROP_NAME]: &quot;属性&quot;
+  [PROP_AGE] = 18
+}
+
+obj[PROP_NAME] // '属性'
+obj[PROP_AGE] // 18
+</code></pre>
+<h3 id="对象中的symbol不能普通方法列举">对象中的Symbol不能普通方法列举</h3>
+<p>Symbol类型的key是不能通过Object.keys()或者for...in来枚举的，它未被包含在对象自身的属性名集合(property names)之中。</p>
+<pre><code>let obj = {
+   [Symbol('name')]: 'name',
+   age: 18,
+   title: 'Engineer'
+}
+
+Object.keys(obj)   // ['age', 'title']
+
+for (let p in obj) {
+   console.log(p)   // 分别会输出：'age' 和 'title'
+}
+
+Object.getOwnPropertyNames(obj)   // ['age', 'title']
+</code></pre>
+<p>所以可以用Symbol存放一些不需要对外操作的属性。</p>
+<h2 id="枚举symbol">枚举Symbol</h2>
+<p>Symbol有自己特定的枚举方法。</p>
+<pre><code>// 使用Object的API
+Object.getOwnPropertySymbols(obj) // [Symbol(name)]
+
+// 使用新增的反射API
+Reflect.ownKeys(obj) // [Symbol(name), 'age', 'title']
+</code></pre>
+<h2 id="场景">场景</h2>
+<p>按他的特性来说能我遇到过需要Symbol用场景确实不是很多。他主要是可以通过它的唯一性代替常量。</p>
+<pre><code>// 原来情况
+export const FECTH_PROJECT_ROOT = 'fetchProjectRoot'
+export const DELETE_FILE = 'deleteFile'
+
+let obj={
+    [FECTH_PROJECT_ROOT]:{
+
+    },
+    [DELETE_FILE]:{
+
+    }
+}
+</code></pre>
+<p>可以改用Symbol</p>
+<pre><code>export const FECTH_PROJECT_ROOT = Symbol();
+export const DELETE_FILE = Symbol();
+
+let obj={
+    [FECTH_PROJECT_ROOT]:{
+
+    },
+    [DELETE_FILE]:{
+
+    }
+}
+</code></pre>
+<p>或者switch等，类似的情况。</p>
 ]]></content>
     </entry>
 </feed>

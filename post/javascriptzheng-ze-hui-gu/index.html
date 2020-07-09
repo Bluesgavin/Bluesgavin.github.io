@@ -1,0 +1,340 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[javascript]正则回顾 | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[javascript]正则回顾 | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="正则
+正则是在字符串中搜索，检验出具体内容的的规则。他有自己的语法，配置。正则用得6的同学，很多问题都可以迅速解决。
+语法
+/正则表达式主体/修饰符(可选)
+
+修饰符
+修饰符就好像是正则中的配置，写在主体外。
+
+
+
+修饰符
+描述
+
+
+
+
+i..." />
+    <meta name="keywords" content="javasricpt" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [javascript]正则回顾
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-11-19
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/2UOyrMpQK/" class="post-tag">
+                  # javasricpt
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="正则">正则</h1>
+<p>正则是在字符串中搜索，检验出具体内容的的规则。他有自己的语法，配置。正则用得6的同学，很多问题都可以迅速解决。</p>
+<h2 id="语法">语法</h2>
+<pre><code>/正则表达式主体/修饰符(可选)
+</code></pre>
+<h2 id="修饰符">修饰符</h2>
+<p>修饰符就好像是正则中的配置，写在主体外。</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td style="text-align:left">执行对大小写不敏感的匹配。</td>
+</tr>
+<tr>
+<td>g</td>
+<td style="text-align:left">执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）。</td>
+</tr>
+<tr>
+<td>m</td>
+<td style="text-align:left">执行多行匹配。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="元字符">元字符</h2>
+<p>元字符是正则里，某些符号，内容的代表。</p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\d</td>
+<td style="text-align:left">查找数字。</td>
+</tr>
+<tr>
+<td>\s</td>
+<td style="text-align:left">查找空白字符。</td>
+</tr>
+<tr>
+<td>\b</td>
+<td style="text-align:left">匹配单词边界。</td>
+</tr>
+<tr>
+<td>\uxxxx</td>
+<td style="text-align:left">查找以十六进制数 xxxx 规定的 Unicode 字符。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="量词符号">量词符号</h2>
+<p>量词符号指对于指定内容出现的次数。</p>
+<table>
+<thead>
+<tr>
+<th>量词</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td style="text-align:left">匹配任何包含至少一个 n 的字符串。</td>
+</tr>
+<tr>
+<td>*</td>
+<td style="text-align:left">匹配任何包含零个或多个 n 的字符串。</td>
+</tr>
+<tr>
+<td>?</td>
+<td style="text-align:left">匹配任何包含零个或一个 n 的字符串。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="括号">括号</h2>
+<h4 id="1小括号">1.小括号()</h4>
+<p>小括号是一小片段目标内容，他常跟<code>|</code>搭配，表示多选。</p>
+<pre><code>表示匹配aaa或者bbb
+/(aaa|bbb)/
+</code></pre>
+<h4 id="2中括号">2.中括号[]</h4>
+<p>中括号跟小括号类似，可是他常跟[0-9a-zA-Z.*?!]等搭配，表示一些常用字符。</p>
+<pre><code>表示数字
+/[0-9]/
+表示字母
+/[a-zA-Z]/
+表示普通字符
+/[-!?*(]/
+</code></pre>
+<h4 id="3大括号">3.大括号{}</h4>
+<p>大括号是匹配次数。</p>
+<pre><code>表示长度为3的数字
+/\d{3}/
+
+表示长度为1-3的数字
+/\d{1，3}/
+</code></pre>
+<h2 id="正则方法">正则方法</h2>
+<h4 id="1test">1.test</h4>
+<p>test()用于检测字符串里是否匹配目标正则的规则。返回布尔值。</p>
+<pre><code>/\d{3}/.test(&quot;a1b2c3&quot;)
+// false
+
+/\d{1,3}/.test(&quot;a1b2c3&quot;)
+// true
+</code></pre>
+<h4 id="2exec">2.exec</h4>
+<p>exec()方法用于检索字符串中的正则表达式的匹配。返回一个数据，内容为匹配结果，如果未找到匹配，则返回值为 null。exec返回的结果里有lastIndex属性,记录每次找到结果的坐标。</p>
+<pre><code>/\d{1,3}/.exec(&quot;a1b2c3&quot;)
+</code></pre>
+<h4 id="特殊match">特殊：match</h4>
+<p>match不是正则方法。是字符串的方法。可是他很常用来作正则提取。他和exec不同的点在于之一是match返回的数组可以，获得所有匹配内容。而exec每次只会返回一个，需要多次调用才能获得所有目标。</p>
+<pre><code>var str = &quot;&lt;div&gt;&lt;a&gt;1dasd32&lt;/a&gt;&lt;a&gt;2&lt;/a&gt;&lt;a&gt;3&lt;/a&gt;&lt;/div&gt;&quot;;
+str.match(/&lt;a&gt;([a-zA-Z0-9]*)&lt;\/a&gt;/g);
+// [&quot;&lt;a&gt;1dasd32&lt;/a&gt;&quot;, &quot;&lt;a&gt;2&lt;/a&gt;&quot;, &quot;&lt;a&gt;3&lt;/a&gt;&quot;]
+
+/&lt;a&gt;([a-zA-Z0-9]*)&lt;\/a&gt;/g.exec(str);
+// [&quot;&lt;a&gt;1dasd32&lt;/a&gt;&quot;,&quot;1dasd32&quot;];
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E6%AD%A3%E5%88%99">正则</a>
+<ul>
+<li><a href="#%E8%AF%AD%E6%B3%95">语法</a></li>
+<li><a href="#%E4%BF%AE%E9%A5%B0%E7%AC%A6">修饰符</a></li>
+<li><a href="#%E5%85%83%E5%AD%97%E7%AC%A6">元字符</a></li>
+<li><a href="#%E9%87%8F%E8%AF%8D%E7%AC%A6%E5%8F%B7">量词符号</a></li>
+<li><a href="#%E6%8B%AC%E5%8F%B7">括号</a><br>
+*
+<ul>
+<li><a href="#1%E5%B0%8F%E6%8B%AC%E5%8F%B7">1.小括号()</a></li>
+<li><a href="#2%E4%B8%AD%E6%8B%AC%E5%8F%B7">2.中括号[]</a></li>
+<li><a href="#3%E5%A4%A7%E6%8B%AC%E5%8F%B7">3.大括号{}</a></li>
+</ul>
+</li>
+<li><a href="#%E6%AD%A3%E5%88%99%E6%96%B9%E6%B3%95">正则方法</a><br>
+*
+<ul>
+<li><a href="#1test">1.test</a></li>
+<li><a href="#2exec">2.exec</a></li>
+<li><a href="#%E7%89%B9%E6%AE%8Amatch">特殊：match</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/fo-xi-bi-ji-yong-node-cao-zuo-mongodb/">
+              <h3 class="post-title">
+                [佛系笔记]-用node操作mongodb
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

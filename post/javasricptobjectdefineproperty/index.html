@@ -1,0 +1,273 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[javasricpt]Object.defineProperty | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1594305884999">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="[javasricpt]Object.defineProperty | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="# Object.defineProperty
+defineProperty方法的作用是重新定义（修改）一个对象属性。
+## 对象赋值
+一般我们给对象赋值都可以直接用
+```
+obj.name = &quot;张三&quot;;
+或者
+ob..." />
+    <meta name="keywords" content="javasricpt" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1594305884999" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [javasricpt]Object.defineProperty
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-18
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/2UOyrMpQK/" class="post-tag">
+                  # javasricpt
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p># Object.defineProperty</p>
+<p>defineProperty方法的作用是重新定义（修改）一个对象属性。</p>
+<p>## 对象赋值</p>
+<p>一般我们给对象赋值都可以直接用</p>
+<p>```</p>
+<p>obj.name = &quot;张三&quot;;</p>
+<p>或者</p>
+<p>obj[&quot;name&quot;] = &quot;张三&quot;;</p>
+<p>```</p>
+<p>## Object.defineProperty定义</p>
+<p>Object.defineProperty可以说是高级版的对象属性定义。使用方法：</p>
+<p>```</p>
+<p>Object.defineProperty(obj, prop, desc)</p>
+<p>```</p>
+<p>&gt;* obj 是对象</p>
+<p>&gt;* prop 是对象的具体属性</p>
+<p>&gt;* desc 是对属性的描述，类似配置</p>
+<p>#### Object.defineProperty描述内容</p>
+<p>desc是一个对象，他可以写的内容有：</p>
+<p>| 描述       | 说明   |</p>
+<p>| --------   | :-----  |</p>
+<p>| value      | string,number,object,array,boolean,属性的值，不填默认为undefined |</p>
+<p>| writable   | boolean,定义属性能否被改写，假如为true。修改属性之后，返回undefined。 默认值为false   |</p>
+<p>| set        | function,  给属性提供setter方法,接受一个参数。每次属性被修改都会调用该方法。默认值为undefined|</p>
+<p>| get        | function,  给属性提供getter方法,接受一个参数。每次属性被读取都会调用该方法。默认值为undefined|</p>
+<p>| configurable    | boolean,  描述属性是否配置，以及可否删除。默认值为false|</p>
+<p>| enumerable    | boolean,  描述属性是否会出现在for in 或者 Object.keys()的遍历中。默认值为false|</p>
+<p>#### set,get例子</p>
+<p>set,get是vue数据绑定的原理。</p>
+<p>```</p>
+<p>let obj = {};</p>
+<p>let temp;</p>
+<p>Object.defineProperty(obj,&quot;name&quot;,{</p>
+<p>set(value){</p>
+<p>temp = value;</p>
+<p>// do something</p>
+<p>},</p>
+<p>get(){</p>
+<p>// do something</p>
+<p>return temp;</p>
+<p>}</p>
+<p>});</p>
+<p>```</p>
+<p>#### configurable例子</p>
+<p>```</p>
+<p>let obj = {};</p>
+<p>Object.defineProperty(obj,&quot;name&quot;,{</p>
+<p>value: &quot;张三&quot;,</p>
+<p>configurable: false</p>
+<p>});</p>
+<p>Object.defineProperty(obj,&quot;name&quot;,{</p>
+<p>value: &quot;李四&quot;</p>
+<p>});</p>
+<p>// 再次定义该属性会报错：Cannot redefine property: name</p>
+<p>delete obj.name;</p>
+<p>// 会返回false，再次看obj.name会发现没有删除成功。</p>
+<p>```</p>
+<p>#### enumerable例子</p>
+<p>```</p>
+<p>let obj = {};</p>
+<p>Object.defineProperty(obj,&quot;name&quot;,{</p>
+<p>value: &quot;张三&quot;,</p>
+<p>enumerable: false</p>
+<p>});</p>
+<p>obj.job = &quot;teacher&quot;;</p>
+<p>Object.defineProperty(obj,&quot;age&quot;,{</p>
+<p>value: &quot;12&quot;,</p>
+<p>enumerable: true</p>
+<p>});</p>
+<p>conosole.log(Object.keys(obj)) // [&quot;job&quot;,&quot;age&quot;];</p>
+<p>for( let i in obj){ console.log(i)}; // &quot;job&quot;,&quot;age&quot;</p>
+<p>```</p>
+<p>#### 注意项</p>
+<p>```</p>
+<p>// 用obj.name直接定义，和Object.definePropery定义的效果默认值并不同。</p>
+<p>obj.name = &quot;张三&quot;;</p>
+<p>// 等于</p>
+<p>Object.definePropery(obj,&quot;name&quot;,{</p>
+<p>value: &quot;张三&quot;,</p>
+<p>enumerable: true,</p>
+<p>configurable: true,</p>
+<p>writable: true</p>
+<p>});</p>
+<p>Object.definePropery(obj,&quot;name&quot;,{</p>
+<p>value: &quot;张三&quot;</p>
+<p>});</p>
+<p>// 等于</p>
+<p>Object.definePropery(obj,&quot;name&quot;,{</p>
+<p>value: &quot;张三&quot;,</p>
+<p>enumerable: false,</p>
+<p>configurable: false,</p>
+<p>writable: false</p>
+<p>});</p>
+<p>```</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/javascriptzheng-ze-hui-gu/">
+              <h3 class="post-title">
+                [javascript]正则回顾
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
