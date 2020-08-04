@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Bluesgavin.github.io</id>
     <title>GAVIN&apos;S BLOG</title>
-    <updated>2020-07-30T14:49:24.024Z</updated>
+    <updated>2020-08-04T14:10:37.213Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Bluesgavin.github.io"/>
     <link rel="self" href="https://Bluesgavin.github.io/atom.xml"/>
@@ -10,6 +10,68 @@
     <logo>https://Bluesgavin.github.io/images/avatar.png</logo>
     <icon>https://Bluesgavin.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, GAVIN&apos;S BLOG</rights>
+    <entry>
+        <title type="html"><![CDATA[如何用FreeSSL申请免费ssl证书]]></title>
+        <id>https://Bluesgavin.github.io/post/ru-he-yong-freessl-shen-qing-mian-fei-ssl-zheng-shu/</id>
+        <link href="https://Bluesgavin.github.io/post/ru-he-yong-freessl-shen-qing-mian-fei-ssl-zheng-shu/">
+        </link>
+        <updated>2020-08-04T14:06:55.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="ssl证书">ssl证书</h1>
+<h2 id="相关网站">相关网站</h2>
+<p><a href="https://freessl.cn/">FreeSSL</a><br>
+<a href="https://keymanager.org/">KeyManager</a></p>
+<h2 id="简述">简述</h2>
+<p>总所周知https是在http协议的基础上加上了ssl层，来建立一个信息安全的通道，来保证数据传输的安全，并确认网站的真实性。而这个过程可以简述为是客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密。这里的公钥就是CA证书。也是我们今天要讲的内容。用FreeSSL申请免费的证书。</p>
+<h2 id="申请流程">申请流程</h2>
+<h4 id="1下载keymanager">1.下载KeyManager</h4>
+<p>点击<a href="https://keymanager.org/">KeyManager</a>，到KeyManager官网下载软件。并安装。KeyManager是一个证书管理器，可以同时管理并查看多个证书的信息。</p>
+<h4 id="2注册登录">2.注册登录</h4>
+<p>注册并登录FreeSSL账号<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550099647.png" alt="" loading="lazy"></p>
+<h4 id="3确认申请信息">3.确认申请信息</h4>
+<p>打开<a href="https://freessl.cn/">FreeSSL</a>官网，首页即可创建证书，这里我们选择<code>TRUSTAsia</code>作例子。点击创建之后会进一步选择细项。<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550111957.png" alt="" loading="lazy"><br>
+这里可以选中证书的验证方式，分为DNS验证和文件认证。这里用文件认证作例子。简单说明一下区别，DNS认证就是在DNS系统里插入一条TXT信息，组织会去验证有没有这条信息，如果有就通过验证。文件验证就是在域名下静态代理一个文件，文件内容是组织规定的。组织通过http或https请求去尝试获得这个文件内容，如果符合则通过。</p>
+<h4 id="4证书认证">4.证书认证</h4>
+<p>点击完第三步的操作之后，浏览器会提示要求打开KeyManager。<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550122842.png" alt="" loading="lazy"><br>
+打开之后会出现以下界面<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550129837.png" alt="" loading="lazy"><br>
+返回浏览器点击继续，出现以下界面<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550154418.png" alt="" loading="lazy"><br>
+这里说明一下，<code>文件路径</code>就是组织会访问的路径，我们需要把文件静态代理到这个地址下。而<code>记录值</code>就是这个文件的内部。这里如果不想自己创建这个文件的话，可以点击<code>下载文件</code>直接下载。如果是自己创建的话，文件格式必须是UTF-8。<br>
+配置完之后点一下，<code>配置完成，检测一下</code>。出现以下界面，注意这个需要选择自己的验证方式，这里以文件检测为例。<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550162462.png" alt="" loading="lazy"><br>
+检测结果会在下方显示，3个服务器中只要有一个通过即代表通过检测了。</p>
+<h4 id="5获得证书">5.获得证书</h4>
+<p>返回浏览器上一页，点击<code>点击验证</code>。通过之后证书信息就会出现在KeyManager下。<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550170223.png" alt="" loading="lazy"><br>
+<img src="https://Bluesgavin.github.io/post-images/1596550175816.png" alt="" loading="lazy"><br>
+点击<code>导出证书</code>，按自己的网页部署方式选择即可。<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550182244.png" alt="" loading="lazy"></p>
+<h2 id="踩坑记录">踩坑记录</h2>
+<p>本人用nginx来部署页面，在过程中遇到了几个坑。大家可以参考一下。</p>
+<h4 id="1确认静态文件路径是否允许访问">1.确认静态文件路径是否允许访问</h4>
+<p>假如nginx配置文件很庞大，有可能会出现，路径被屏蔽的情况。</p>
+<pre><code class="language-nginx">// 这里一个权限更高的配置，拦截了访问路径。所以要在子路径配置下加上`allow all`。
+location ~ /\.{
+        deny all;
+}
+location ~ /.well-known {
+    allow all;
+}
+</code></pre>
+<h4 id="2避免一些防御配置把请求拦截">2.避免一些防御配置把请求拦截</h4>
+<p>平时我们可能会在nginx中添加一些配置，来阻止爬虫等非正常访问。在证书检测时，由于请求是由组织的机器人发起的。有可能会被拦截，所有建议先把拦截停一下再检测。</p>
+<h4 id="3不明原因可以尝试改用https">3.不明原因，可以尝试改用https</h4>
+<p>在nginx配置完之后，我尝试用浏览器直接访问，可以拿到文件。可是在freessl检测时一直没有通过。查看nginx日志，发现所有由他们发起的请求都返回了<code>504</code>。试过了所有操作之后，没办法。尝试一下把nginx改成https。居然通过了。具体原因是什么还不清楚。如果大家也遇到了可以试一下改用https。</p>
+<pre><code>server {
+    listen       443 ssl;
+    .....
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[[思考总结]毕业2年后我在做什么]]></title>
         <id>https://Bluesgavin.github.io/post/si-kao-zong-jie-bi-ye-2-nian-hou-wo-zai-zuo-shi-me/</id>
@@ -1120,76 +1182,6 @@ MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
 });
 </code></pre>
 <p><a href="https://www.runoob.com/nodejs/nodejs-mongodb.html">本文参考文章地址</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[佛系笔记]-我会用命令来git]]></title>
-        <id>https://Bluesgavin.github.io/post/fo-xi-bi-ji-wo-hui-yong-ming-ling-lai-git/</id>
-        <link href="https://Bluesgavin.github.io/post/fo-xi-bi-ji-wo-hui-yong-ming-ling-lai-git/">
-        </link>
-        <updated>2019-11-05T14:27:43.000Z</updated>
-        <content type="html"><![CDATA[<blockquote>
-<ul>
-<li>佛系笔记系列是不求深究，只求会用的粗暴总结。</li>
-</ul>
-</blockquote>
-<h1 id="git">GIT</h1>
-<p>今天请大家来和我一起背命令~~</p>
-<h2 id="创建">创建</h2>
-<p>在项目的目录下执行<code>git init</code>即可将项目变为git项目。目录下会创建.git文件夹。用来管理项目。</p>
-<h2 id="添加文件至仓库">添加文件至仓库</h2>
-<p>提交文件要执行两个动作：</p>
-<h4 id="git-add">git add</h4>
-<p>修改了的文件先用<code>git add &lt;文件名&gt;</code>,把文件添加到仓库。</p>
-<h4 id="git-commit">git commit</h4>
-<p>添加到仓库之后，<code>git commit &lt;文件名&gt;</code>把文件提交到仓库。注意在使用commit时，<code>git commit &lt;文件名&gt; -m &quot;xxx&quot;</code>-m后面输入的是本次提交的说明，可以输入任意内容，当然最好是有意义的，这样你就能从历史记录里方便地找到改动记录。执行之后会返回显示多少文件改变了。</p>
-<h2 id="查看状态">查看状态</h2>
-<h4 id="git-status">git status</h4>
-<p><code>git status</code>命令可以让我们知道目录中文件与仓库中的差别。可以知道什么被修改过了，但还没有准备提交的修改。</p>
-<h4 id="git-diff">git diff</h4>
-<p><code>git diff</code>可以看到被修改的文件，具体被修改了哪一行。</p>
-<h2 id="查看日志">查看日志</h2>
-<h4 id="git-log">git log</h4>
-<p><code>git log</code>可以看到三次提交记录，和对应的版本号。加上--pretty=oneline参数可以让结果更简约。</p>
-<h4 id="git-reflog">git reflog</h4>
-<p><code>git reflog</code>记录了你的每一次命令，包括reset的动作。</p>
-<h2 id="指针">指针</h2>
-<p>如果把git的厉害记录看成是一个钟表，我们现在所在的位置就是指针指向的位置。git中的指针是HEAD。用HEAD表示当前版本，也就是最新的提交1094adb...，上一个版本就是HEAD<sup>，上上一个版本就是HEAD</sup><sup>，当然往上100个版本写100个</sup>比较容易数不过来，所以写成HEAD~100。</p>
-<h4 id="git-reset">git reset</h4>
-<p>git给了我们时光倒流的机会。我们可以改名git的HEAD的指向。用<code>git reset</code>可以倒退指针，如回到上一个版本。</p>
-<pre><code> git reset --hard HEAD^
-</code></pre>
-<h2 id="远程仓库">远程仓库</h2>
-<p>我们电脑本地的目录只存在本地，通过远程仓库（github,gitlab等）可以实现多人（多设备）之间协调修改项目。</p>
-<h4 id="git-remote">git remote</h4>
-<p>可以用<code>git remote</code>把本地项目关联到远程仓库中。</p>
-<pre><code>    git remote add origin &lt;地址&gt;
-</code></pre>
-<h4 id="git-push">git push</h4>
-<p>用<code>git push</code>命令，可以把当前分支master推送到远程。对于新建的项目，远程仓库是空的，在第一次push 的时候如果带上<code>-u</code>。不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
-<h4 id="git-clone">git clone</h4>
-<p>如果想要从远程仓库中克隆项目到自己本地中，可以用<code>git clone &lt;地址&gt;</code>,即可。</p>
-<h2 id="分支">分支</h2>
-<p>如果把git的记录看成时间线，分支就是从一个点开始分出的平行宇宙。各个分支之间互不影响。在未来的某一点可以让分支合并。<br>
-在git中主分支默认叫做<code>master</code>。</p>
-<h4 id="git-branch">git branch</h4>
-<p><code>git branch &lt;分支名&gt;</code>，创建新分支。<br>
-<code>git branch</code> 会显示所有分支<br>
-<code>git branch -d dev</code> 会删除指定分支</p>
-<h4 id="git-checkout">git checkout</h4>
-<p><code>git checkout</code>用作创建或者切换分支。</p>
-<pre><code>    git checkout -b dev
-</code></pre>
-<p>带上<code>-b</code>表示创建并切换.<br>
-*另外<code>git checkout -- &lt;文件名&gt;</code>还可以撤消文件的修改，至当前仓库版本的内容。</p>
-<h4 id="git-switch">git switch</h4>
-<pre><code> git switch &lt;分支名&gt;
-</code></pre>
-<p>用switch更加严谨，也是新版本推荐的。加上<code>-c</code>，创建和切换</p>
-<h4 id="git-merge">git merge</h4>
-<p>git merge命令用于合并指定分支到当前分支</p>
-<h2 id="总结">总结</h2>
-<p>现在其实有很多git的可视化工具，很多也做得很好。我们为什么还要用命令来玩git呢？第一，可以装逼。第二，假如我们在开发一个线上正在用的项目。如果通过git来给线上更新，可以省去不少麻烦，出了问题还可以reset一下。毕竟服务器一般没有ui。</p>
 ]]></content>
     </entry>
 </feed>

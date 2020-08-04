@@ -1,0 +1,259 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>如何用FreeSSL申请免费ssl证书 | GAVIN&#39;S BLOG</title>
+<link rel="shortcut icon" href="https://Bluesgavin.github.io/favicon.ico?v=1596550218485">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Bluesgavin.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="如何用FreeSSL申请免费ssl证书 | GAVIN&#39;S BLOG - Atom Feed" href="https://Bluesgavin.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="ssl证书
+相关网站
+FreeSSL
+KeyManager
+简述
+总所周知https是在http协议的基础上加上了ssl层，来建立一个信息安全的通道，来保证数据传输的安全，并确认网站的真实性。而这个过程可以简述为是客户端先向服务器端索要公钥..." />
+    <meta name="keywords" content="工具备忘" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Bluesgavin.github.io">
+  <img class="avatar" src="https://Bluesgavin.github.io/images/avatar.png?v=1596550218485" alt="">
+  </a>
+  <h1 class="site-title">
+    GAVIN&#39;S BLOG
+  </h1>
+  <p class="site-description">
+    Welcome to Terabithia
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Bluesgavin" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              如何用FreeSSL申请免费ssl证书
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-08-04
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://Bluesgavin.github.io/tag/H29RI9ia9/" class="post-tag">
+                  # 工具备忘
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://Bluesgavin.github.io/post-images/ru-he-yong-freessl-shen-qing-mian-fei-ssl-zheng-shu.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="ssl证书">ssl证书</h1>
+<h2 id="相关网站">相关网站</h2>
+<p><a href="https://freessl.cn/">FreeSSL</a><br>
+<a href="https://keymanager.org/">KeyManager</a></p>
+<h2 id="简述">简述</h2>
+<p>总所周知https是在http协议的基础上加上了ssl层，来建立一个信息安全的通道，来保证数据传输的安全，并确认网站的真实性。而这个过程可以简述为是客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密。这里的公钥就是CA证书。也是我们今天要讲的内容。用FreeSSL申请免费的证书。</p>
+<h2 id="申请流程">申请流程</h2>
+<h4 id="1下载keymanager">1.下载KeyManager</h4>
+<p>点击<a href="https://keymanager.org/">KeyManager</a>，到KeyManager官网下载软件。并安装。KeyManager是一个证书管理器，可以同时管理并查看多个证书的信息。</p>
+<h4 id="2注册登录">2.注册登录</h4>
+<p>注册并登录FreeSSL账号<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550099647.png" alt="" loading="lazy"></p>
+<h4 id="3确认申请信息">3.确认申请信息</h4>
+<p>打开<a href="https://freessl.cn/">FreeSSL</a>官网，首页即可创建证书，这里我们选择<code>TRUSTAsia</code>作例子。点击创建之后会进一步选择细项。<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550111957.png" alt="" loading="lazy"><br>
+这里可以选中证书的验证方式，分为DNS验证和文件认证。这里用文件认证作例子。简单说明一下区别，DNS认证就是在DNS系统里插入一条TXT信息，组织会去验证有没有这条信息，如果有就通过验证。文件验证就是在域名下静态代理一个文件，文件内容是组织规定的。组织通过http或https请求去尝试获得这个文件内容，如果符合则通过。</p>
+<h4 id="4证书认证">4.证书认证</h4>
+<p>点击完第三步的操作之后，浏览器会提示要求打开KeyManager。<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550122842.png" alt="" loading="lazy"><br>
+打开之后会出现以下界面<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550129837.png" alt="" loading="lazy"><br>
+返回浏览器点击继续，出现以下界面<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550154418.png" alt="" loading="lazy"><br>
+这里说明一下，<code>文件路径</code>就是组织会访问的路径，我们需要把文件静态代理到这个地址下。而<code>记录值</code>就是这个文件的内部。这里如果不想自己创建这个文件的话，可以点击<code>下载文件</code>直接下载。如果是自己创建的话，文件格式必须是UTF-8。<br>
+配置完之后点一下，<code>配置完成，检测一下</code>。出现以下界面，注意这个需要选择自己的验证方式，这里以文件检测为例。<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550162462.png" alt="" loading="lazy"><br>
+检测结果会在下方显示，3个服务器中只要有一个通过即代表通过检测了。</p>
+<h4 id="5获得证书">5.获得证书</h4>
+<p>返回浏览器上一页，点击<code>点击验证</code>。通过之后证书信息就会出现在KeyManager下。<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550170223.png" alt="" loading="lazy"><br>
+<img src="https://Bluesgavin.github.io/post-images/1596550175816.png" alt="" loading="lazy"><br>
+点击<code>导出证书</code>，按自己的网页部署方式选择即可。<br>
+<img src="https://Bluesgavin.github.io/post-images/1596550182244.png" alt="" loading="lazy"></p>
+<h2 id="踩坑记录">踩坑记录</h2>
+<p>本人用nginx来部署页面，在过程中遇到了几个坑。大家可以参考一下。</p>
+<h4 id="1确认静态文件路径是否允许访问">1.确认静态文件路径是否允许访问</h4>
+<p>假如nginx配置文件很庞大，有可能会出现，路径被屏蔽的情况。</p>
+<pre><code class="language-nginx">// 这里一个权限更高的配置，拦截了访问路径。所以要在子路径配置下加上`allow all`。
+location ~ /\.{
+        deny all;
+}
+location ~ /.well-known {
+    allow all;
+}
+</code></pre>
+<h4 id="2避免一些防御配置把请求拦截">2.避免一些防御配置把请求拦截</h4>
+<p>平时我们可能会在nginx中添加一些配置，来阻止爬虫等非正常访问。在证书检测时，由于请求是由组织的机器人发起的。有可能会被拦截，所有建议先把拦截停一下再检测。</p>
+<h4 id="3不明原因可以尝试改用https">3.不明原因，可以尝试改用https</h4>
+<p>在nginx配置完之后，我尝试用浏览器直接访问，可以拿到文件。可是在freessl检测时一直没有通过。查看nginx日志，发现所有由他们发起的请求都返回了<code>504</code>。试过了所有操作之后，没办法。尝试一下把nginx改成https。居然通过了。具体原因是什么还不清楚。如果大家也遇到了可以试一下改用https。</p>
+<pre><code>server {
+    listen       443 ssl;
+    .....
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#ssl%E8%AF%81%E4%B9%A6">ssl证书</a>
+<ul>
+<li><a href="#%E7%9B%B8%E5%85%B3%E7%BD%91%E7%AB%99">相关网站</a></li>
+<li><a href="#%E7%AE%80%E8%BF%B0">简述</a></li>
+<li><a href="#%E7%94%B3%E8%AF%B7%E6%B5%81%E7%A8%8B">申请流程</a><br>
+*
+<ul>
+<li><a href="#1%E4%B8%8B%E8%BD%BDkeymanager">1.下载KeyManager</a></li>
+<li><a href="#2%E6%B3%A8%E5%86%8C%E7%99%BB%E5%BD%95">2.注册登录</a></li>
+<li><a href="#3%E7%A1%AE%E8%AE%A4%E7%94%B3%E8%AF%B7%E4%BF%A1%E6%81%AF">3.确认申请信息</a></li>
+<li><a href="#4%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81">4.证书认证</a></li>
+<li><a href="#5%E8%8E%B7%E5%BE%97%E8%AF%81%E4%B9%A6">5.获得证书</a></li>
+</ul>
+</li>
+<li><a href="#%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95">踩坑记录</a><br>
+*
+<ul>
+<li><a href="#1%E7%A1%AE%E8%AE%A4%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E6%98%AF%E5%90%A6%E5%85%81%E8%AE%B8%E8%AE%BF%E9%97%AE">1.确认静态文件路径是否允许访问</a></li>
+<li><a href="#2%E9%81%BF%E5%85%8D%E4%B8%80%E4%BA%9B%E9%98%B2%E5%BE%A1%E9%85%8D%E7%BD%AE%E6%8A%8A%E8%AF%B7%E6%B1%82%E6%8B%A6%E6%88%AA">2.避免一些防御配置把请求拦截</a></li>
+<li><a href="#3%E4%B8%8D%E6%98%8E%E5%8E%9F%E5%9B%A0%E5%8F%AF%E4%BB%A5%E5%B0%9D%E8%AF%95%E6%94%B9%E7%94%A8https">3.不明原因，可以尝试改用https</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Bluesgavin.github.io/post/si-kao-zong-jie-bi-ye-2-nian-hou-wo-zai-zuo-shi-me/">
+              <h3 class="post-title">
+                [思考总结]毕业2年后我在做什么
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Bluesgavin.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
