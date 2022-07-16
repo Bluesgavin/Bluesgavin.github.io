@@ -32,7 +32,7 @@ body {
   width: 20rem;
 }
 .info {
-  padding-bottom: 3rem;
+  padding-bottom: 2.5rem;
   text-align: center;
 }
 .info .name {
@@ -94,6 +94,7 @@ body {
 }
 .contact .row .col .desp {
   color: #a5a4a4;
+  line-height: 2;
   font-size: 0.8rem;
 }
 @media (max-width: 500px) {
